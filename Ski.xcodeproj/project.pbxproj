@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB4EECE51CDF050D0024C042 /* Commodore Pixelized v1.2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */; };
 		FBAED8AC1CB9C8A800438E3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */; };
 		FBAED8AE1CB9C8A800438E3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = FBAED8AD1CB9C8A800438E3F /* GameScene.sks */; };
 		FBAED8B01CB9C8A800438E3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AF1CB9C8A800438E3F /* GameScene.swift */; };
@@ -14,9 +15,22 @@
 		FBAED8B51CB9C8A800438E3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBAED8B31CB9C8A800438E3F /* Main.storyboard */; };
 		FBAED8B71CB9C8A800438E3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAED8B61CB9C8A800438E3F /* Assets.xcassets */; };
 		FBAED8BA1CB9C8A800438E3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBAED8B81CB9C8A800438E3F /* LaunchScreen.storyboard */; };
+		FBD75DC61CDE5CA00090E9F6 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC51CDE5CA00090E9F6 /* player.atlas */; };
+		FBD75DC81CDE5CBD0090E9F6 /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC71CDE5CBD0090E9F6 /* world.atlas */; };
+		FBD75DCA1CDE5CCF0090E9F6 /* ski_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */; };
+		FBD75DCC1CDE5D050090E9F6 /* LevelMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DCB1CDE5D050090E9F6 /* LevelMaker.swift */; };
+		FBD75DCE1CDE5D790090E9F6 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DCD1CDE5D790090E9F6 /* GameSettings.swift */; };
+		FBD75DD41CDE60750090E9F6 /* GameStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD31CDE60750090E9F6 /* GameStates.swift */; };
+		FBD75DD61CDE60A70090E9F6 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */; };
+		FBD75DD81CDE60EB0090E9F6 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */; };
+		FBD75DDA1CDE61140090E9F6 /* PlayerMoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */; };
+		FBD75DDC1CDE61390090E9F6 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */; };
+		FBD75DDF1CDE6B580090E9F6 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DDE1CDE6B580090E9F6 /* CGFloat+Extensions.swift */; };
+		FBD75DE11CDE6BA70090E9F6 /* CFPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DE01CDE6BA70090E9F6 /* CFPoint+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commodore Pixelized v1.2.ttf"; sourceTree = "<group>"; };
 		FBAED8A81CB9C8A800438E3F /* Ski.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ski.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBAED8AD1CB9C8A800438E3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -26,6 +40,18 @@
 		FBAED8B61CB9C8A800438E3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBAED8B91CB9C8A800438E3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FBAED8BB1CB9C8A800438E3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBD75DC51CDE5CA00090E9F6 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
+		FBD75DC71CDE5CBD0090E9F6 /* world.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = world.atlas; sourceTree = "<group>"; };
+		FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ski_level1.txt; sourceTree = "<group>"; };
+		FBD75DCB1CDE5D050090E9F6 /* LevelMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelMaker.swift; sourceTree = "<group>"; };
+		FBD75DCD1CDE5D790090E9F6 /* GameSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameSettings.swift; path = ../GameSettings.swift; sourceTree = "<group>"; };
+		FBD75DD31CDE60750090E9F6 /* GameStates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStates.swift; sourceTree = "<group>"; };
+		FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
+		FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerMoveComponent.swift; sourceTree = "<group>"; };
+		FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
+		FBD75DDE1CDE6B580090E9F6 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		FBD75DE01CDE6BA70090E9F6 /* CFPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFPoint+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,15 +85,76 @@
 			isa = PBXGroup;
 			children = (
 				FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */,
-				FBAED8AD1CB9C8A800438E3F /* GameScene.sks */,
-				FBAED8AF1CB9C8A800438E3F /* GameScene.swift */,
 				FBAED8B11CB9C8A800438E3F /* GameViewController.swift */,
+				FBD75DCD1CDE5D790090E9F6 /* GameSettings.swift */,
+				FBD75DCB1CDE5D050090E9F6 /* LevelMaker.swift */,
+				FBD75DC41CDE5C750090E9F6 /* Resources */,
+				FBD75DDD1CDE6B290090E9F6 /* Extensions */,
+				FBD75DD11CDE603B0090E9F6 /* States */,
+				FBD75DD01CDE60200090E9F6 /* Components */,
+				FBD75DCF1CDE60170090E9F6 /* Entities */,
+				FBD75DD21CDE60450090E9F6 /* Scenes */,
 				FBAED8B31CB9C8A800438E3F /* Main.storyboard */,
 				FBAED8B61CB9C8A800438E3F /* Assets.xcassets */,
 				FBAED8B81CB9C8A800438E3F /* LaunchScreen.storyboard */,
 				FBAED8BB1CB9C8A800438E3F /* Info.plist */,
 			);
 			path = Ski;
+			sourceTree = "<group>";
+		};
+		FBD75DC41CDE5C750090E9F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */,
+				FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */,
+				FBD75DC71CDE5CBD0090E9F6 /* world.atlas */,
+				FBD75DC51CDE5CA00090E9F6 /* player.atlas */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		FBD75DCF1CDE60170090E9F6 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		FBD75DD01CDE60200090E9F6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */,
+				FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */,
+				FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		FBD75DD11CDE603B0090E9F6 /* States */ = {
+			isa = PBXGroup;
+			children = (
+				FBD75DD31CDE60750090E9F6 /* GameStates.swift */,
+			);
+			name = States;
+			sourceTree = "<group>";
+		};
+		FBD75DD21CDE60450090E9F6 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				FBAED8AD1CB9C8A800438E3F /* GameScene.sks */,
+				FBAED8AF1CB9C8A800438E3F /* GameScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		FBD75DDD1CDE6B290090E9F6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FBD75DDE1CDE6B580090E9F6 /* CGFloat+Extensions.swift */,
+				FBD75DE01CDE6BA70090E9F6 /* CFPoint+Extensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,9 +216,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD75DC81CDE5CBD0090E9F6 /* world.atlas in Resources */,
 				FBAED8AE1CB9C8A800438E3F /* GameScene.sks in Resources */,
+				FB4EECE51CDF050D0024C042 /* Commodore Pixelized v1.2.ttf in Resources */,
 				FBAED8BA1CB9C8A800438E3F /* LaunchScreen.storyboard in Resources */,
+				FBD75DC61CDE5CA00090E9F6 /* player.atlas in Resources */,
 				FBAED8B71CB9C8A800438E3F /* Assets.xcassets in Resources */,
+				FBD75DCA1CDE5CCF0090E9F6 /* ski_level1.txt in Resources */,
 				FBAED8B51CB9C8A800438E3F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,9 +234,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBD75DDF1CDE6B580090E9F6 /* CGFloat+Extensions.swift in Sources */,
 				FBAED8B01CB9C8A800438E3F /* GameScene.swift in Sources */,
 				FBAED8B21CB9C8A800438E3F /* GameViewController.swift in Sources */,
+				FBD75DD81CDE60EB0090E9F6 /* SpriteComponent.swift in Sources */,
+				FBD75DD61CDE60A70090E9F6 /* PlayerEntity.swift in Sources */,
+				FBD75DE11CDE6BA70090E9F6 /* CFPoint+Extensions.swift in Sources */,
+				FBD75DCE1CDE5D790090E9F6 /* GameSettings.swift in Sources */,
+				FBD75DDA1CDE61140090E9F6 /* PlayerMoveComponent.swift in Sources */,
+				FBD75DDC1CDE61390090E9F6 /* AnimationComponent.swift in Sources */,
+				FBD75DD41CDE60750090E9F6 /* GameStates.swift in Sources */,
 				FBAED8AC1CB9C8A800438E3F /* AppDelegate.swift in Sources */,
+				FBD75DCC1CDE5D050090E9F6 /* LevelMaker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +397,7 @@
 				FBAED8C01CB9C8A800438E3F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
