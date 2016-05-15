@@ -19,7 +19,9 @@ enum tileType: Int {
     case tileTree = 2
     case tileRock = 3
     case tilePost = 4
-    case tileStart = 5
+    case tileGate = 5
+    case tileStart = 6
+    case tileFinish = 7
 }
 
 struct tileMap {
@@ -73,8 +75,12 @@ struct tileMap {
                     setTile(position: CGPoint(x: pos, y: row), toValue: 3)
                 } else if line[index] == "P" {                              // Post
                     setTile(position: CGPoint(x: pos, y: row), toValue: 4)
-                } else if line[index] == "I" {                              // Player
+                } else if line[index] == "." {                              // Gate
                     setTile(position: CGPoint(x: pos, y: row), toValue: 5)
+                } else if line[index] == "I" {                              // Start
+                    setTile(position: CGPoint(x: pos, y: row), toValue: 6)
+                } else if line[index] == "F" {                              // Finish
+                    setTile(position: CGPoint(x: pos, y: row), toValue: 7)
                 } else {                                                    // Snow
                     setTile(position: CGPoint(x: pos, y: row), toValue: 1)
                 }

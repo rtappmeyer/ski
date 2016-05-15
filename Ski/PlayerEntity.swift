@@ -28,6 +28,13 @@ class PlayerEntity: GKEntity {
         
         moveComponent = PlayerMoveComponent()
         addComponent(moveComponent)
+        
+        let physicsBody = SKPhysicsBody(circleOfRadius: 4)
+        physicsBody.dynamic = true
+        physicsBody.categoryBitMask = ColliderType.Player.rawValue
+        physicsBody.collisionBitMask = ColliderType.None.rawValue
+        physicsBody.contactTestBitMask = ColliderType.Gate.rawValue | ColliderType.Tree.rawValue | ColliderType.Rock.rawValue
+        spriteComponent.node.physicsBody = physicsBody
     }
     
     func loadAnimations() -> [AnimationState: Animation] {

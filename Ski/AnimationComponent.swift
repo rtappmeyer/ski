@@ -63,23 +63,17 @@ class AnimationComponent: GKComponent {
     }
     
     class func animationFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState, repeatTexturesForever: Bool = true) -> Animation {
-        //print("id=\(identifier)")
-        var textures = [atlas.textureNamed("Skiier_Idle_16x19_00.png")]
+        var texture = atlas.textureNamed("Skiier_Idle_16x19_00.png")
         if identifier == "Left" {
-            textures = [atlas.textureNamed("Skiier_Left_16x19_00.png")]
+            texture = atlas.textureNamed("Skiier_Left_16x19_00.png")
         } else if identifier == "Right" {
-            textures = [atlas.textureNamed("Skiier_Right_16x19_00.png")]
+            texture = atlas.textureNamed("Skiier_Right_16x19_00.png")
         }
-        print(textures)
-        //let textures = atlas.textureNames.filter {
-        //    $0.containsString("\(identifier)_")
-        //    }.sort {
-        //        $0 < $1 }.map {
-        //            atlas.textureNamed($0)
-        //}
+        texture.filteringMode = SKTextureFilteringMode.Nearest
+
         return Animation(
             animationState: animationState,
-            textures: textures,
+            textures: [texture],
             repeatTexturesForever: repeatTexturesForever
         )
     }
