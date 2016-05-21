@@ -59,7 +59,7 @@ struct tileMap {
     }
     
     // MARK: Level creation
-    mutating func generateLevel() {
+    mutating func createLevel() {
         
         // Read Level from File
         let levelData = readLinesFromTextFile("ski_level1.txt")

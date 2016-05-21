@@ -9,13 +9,6 @@
 import Foundation
 import SpriteKit
 
-enum AnimationState: String {
-    case Idle = "Idle"
-    case Move_Left = "Left"
-    case Move_Right = "Right"
-    case Fall = "Fall"
-}
-
 enum LastDirection {
     case Left
     case Right

@@ -12,7 +12,7 @@ import GameplayKit
 class PlayerEntity: GKEntity {
     var spriteComponent: SpriteComponent!
     var moveComponent: PlayerMoveComponent!
-    var animationComponent: AnimationComponent!
+    //var animationComponent: AnimationComponent!
     
     override init() {
         super.init()
@@ -22,9 +22,6 @@ class PlayerEntity: GKEntity {
         
         spriteComponent = SpriteComponent(entity: self, texture: texture, size: CGSize(width: 16, height: 19))
         addComponent(spriteComponent)
-        
-        animationComponent = AnimationComponent(node: spriteComponent.node, textureSize: CGSizeMake(16,19), animations: loadAnimations())
-        addComponent(animationComponent)
         
         moveComponent = PlayerMoveComponent()
         addComponent(moveComponent)
@@ -37,16 +34,15 @@ class PlayerEntity: GKEntity {
         spriteComponent.node.physicsBody = physicsBody
     }
     
-    func loadAnimations() -> [AnimationState: Animation] {
-        let textureAtlas = SKTextureAtlas(named: "player")
-        var animations = [AnimationState: Animation]()
-        
-        animations[.Move_Left] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: AnimationState.Move_Left.rawValue, forAnimationState: .Move_Left)
-        
-        animations[.Move_Right] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: AnimationState.Move_Right.rawValue, forAnimationState: .Move_Right)
-        
-        animations[.Idle] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: AnimationState.Idle.rawValue,forAnimationState: .Idle)
-        
-        return animations
+    class func getTexture(identifier: String) -> SKTexture {
+        let atlas = SKTextureAtlas(named: "player")
+        var texture = atlas.textureNamed("Skiier_Idle_16x19_00.png")
+        if identifier == "Left" {
+            texture = atlas.textureNamed("Skiier_Left_16x19_00.png")
+        } else if identifier == "Right" {
+            texture = atlas.textureNamed("Skiier_Right_16x19_00.png")
+        }
+        texture.filteringMode = SKTextureFilteringMode.Nearest
+        return texture
     }
 }

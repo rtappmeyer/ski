@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB43C5781CE7991F00BB0404 /* FinishEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43C5771CE7991F00BB0404 /* FinishEntity.swift */; };
-		FB43C57A1CE7A07E00BB0404 /* finish_192x64_00.png in Resources */ = {isa = PBXBuildFile; fileRef = FB43C5791CE7A07E00BB0404 /* finish_192x64_00.png */; };
-		FB43C57C1CE7A73E00BB0404 /* GateEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43C57B1CE7A73E00BB0404 /* GateEntity.swift */; };
 		FB43C57E1CE8310500BB0404 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43C57D1CE8310500BB0404 /* UIColor+Extensions.swift */; };
 		FB43C5821CE84C1300BB0404 /* Skiier_Start.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FB43C57F1CE84C1300BB0404 /* Skiier_Start.m4a */; };
 		FB43C5831CE84C1300BB0404 /* Skiier_Main_Loop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FB43C5801CE84C1300BB0404 /* Skiier_Main_Loop.m4a */; };
@@ -32,15 +29,11 @@
 		FBD75DD61CDE60A70090E9F6 /* PlayerEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */; };
 		FBD75DD81CDE60EB0090E9F6 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */; };
 		FBD75DDA1CDE61140090E9F6 /* PlayerMoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */; };
-		FBD75DDC1CDE61390090E9F6 /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */; };
 		FBD75DDF1CDE6B580090E9F6 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DDE1CDE6B580090E9F6 /* CGFloat+Extensions.swift */; };
 		FBD75DE11CDE6BA70090E9F6 /* CFPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DE01CDE6BA70090E9F6 /* CFPoint+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FB43C5771CE7991F00BB0404 /* FinishEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishEntity.swift; sourceTree = "<group>"; };
-		FB43C5791CE7A07E00BB0404 /* finish_192x64_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finish_192x64_00.png; sourceTree = "<group>"; };
-		FB43C57B1CE7A73E00BB0404 /* GateEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GateEntity.swift; sourceTree = "<group>"; };
 		FB43C57D1CE8310500BB0404 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FB43C57F1CE84C1300BB0404 /* Skiier_Start.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skiier_Start.m4a; sourceTree = "<group>"; };
 		FB43C5801CE84C1300BB0404 /* Skiier_Main_Loop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skiier_Main_Loop.m4a; sourceTree = "<group>"; };
@@ -65,7 +58,6 @@
 		FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerEntity.swift; sourceTree = "<group>"; };
 		FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerMoveComponent.swift; sourceTree = "<group>"; };
-		FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
 		FBD75DDE1CDE6B580090E9F6 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		FBD75DE01CDE6BA70090E9F6 /* CFPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFPoint+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,7 +117,6 @@
 				FB43C57F1CE84C1300BB0404 /* Skiier_Start.m4a */,
 				FB43C5801CE84C1300BB0404 /* Skiier_Main_Loop.m4a */,
 				FB43C5811CE84C1300BB0404 /* Skiier_Finish.m4a */,
-				FB43C5791CE7A07E00BB0404 /* finish_192x64_00.png */,
 				FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */,
 				FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */,
 				FBD75DC71CDE5CBD0090E9F6 /* world.atlas */,
@@ -138,8 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				FBD75DD51CDE60A70090E9F6 /* PlayerEntity.swift */,
-				FB43C5771CE7991F00BB0404 /* FinishEntity.swift */,
-				FB43C57B1CE7A73E00BB0404 /* GateEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -149,7 +138,6 @@
 			children = (
 				FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */,
 				FBD75DD91CDE61140090E9F6 /* PlayerMoveComponent.swift */,
-				FBD75DDB1CDE61390090E9F6 /* AnimationComponent.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -252,7 +240,6 @@
 				FBAED8B71CB9C8A800438E3F /* Assets.xcassets in Resources */,
 				FBD75DCA1CDE5CCF0090E9F6 /* ski_level1.txt in Resources */,
 				FBAED8B51CB9C8A800438E3F /* Main.storyboard in Resources */,
-				FB43C57A1CE7A07E00BB0404 /* finish_192x64_00.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,16 +253,13 @@
 				FBD75DDF1CDE6B580090E9F6 /* CGFloat+Extensions.swift in Sources */,
 				FB43C57E1CE8310500BB0404 /* UIColor+Extensions.swift in Sources */,
 				FBAED8B01CB9C8A800438E3F /* GameScene.swift in Sources */,
-				FB43C5781CE7991F00BB0404 /* FinishEntity.swift in Sources */,
 				FBAED8B21CB9C8A800438E3F /* GameViewController.swift in Sources */,
 				FBD75DD81CDE60EB0090E9F6 /* SpriteComponent.swift in Sources */,
 				FBD75DD61CDE60A70090E9F6 /* PlayerEntity.swift in Sources */,
 				FBD75DE11CDE6BA70090E9F6 /* CFPoint+Extensions.swift in Sources */,
 				FBD75DCE1CDE5D790090E9F6 /* GameSettings.swift in Sources */,
 				FBD75DDA1CDE61140090E9F6 /* PlayerMoveComponent.swift in Sources */,
-				FBD75DDC1CDE61390090E9F6 /* AnimationComponent.swift in Sources */,
 				FBD75DD41CDE60750090E9F6 /* GameStates.swift in Sources */,
-				FB43C57C1CE7A73E00BB0404 /* GateEntity.swift in Sources */,
 				FBAED8AC1CB9C8A800438E3F /* AppDelegate.swift in Sources */,
 				FBD75DCC1CDE5D050090E9F6 /* LevelMaker.swift in Sources */,
 			);

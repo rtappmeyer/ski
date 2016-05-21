@@ -48,9 +48,9 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
     var tapState = tapAction.startGame
     
     lazy var componentSystems: [GKComponentSystem] = {
-        let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
+        //let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
         let playerMoveSystem = GKComponentSystem(componentClass: PlayerMoveComponent.self)
-        return [animationSystem, playerMoveSystem]
+        return [playerMoveSystem]
     }()
 
     // Sounds
@@ -142,7 +142,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
         deltaTime = deltaTime > maximumUpdateDeltaTime ? maximumUpdateDeltaTime : deltaTime
         lastUpdateTimeInterval = currentTime
         
-        // player controls
+        // Player controls
         if let player = worldLayer.childNodeWithName("playerNode") as? EntityNode, let playerEntity = player.entity as? PlayerEntity {
             if !(movement == CGPointZero) {
                 playerEntity.moveComponent.movement = movement
@@ -154,7 +154,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             componentSystem.updateWithDeltaTime(deltaTime)
         }
         
-        // Update player after components
+        // Update camera position
         if let player = worldLayer.childNodeWithName("playerNode") as? EntityNode
         {
             var cameraPosition: CGPoint = player.position
@@ -162,7 +162,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             centerCameraOnPoint(cameraPosition)
         }
         
-        // Update Timer
+        // Update time display
         if let timeLabel = guiLayer.childNodeWithName("timeLabel") as? SKLabelNode {
             var seconds = Int(startTime.timeIntervalSinceNow) * -1
             var minutes = 0
@@ -187,7 +187,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
     func setupLevel() {
         // Generate Level
         worldGenerator.generateLevel(0)
-        worldGenerator.generateLevel()
+        worldGenerator.createLevel()
         worldGenerator.presentLayerViaDelegate()
         
         // Add Labels
@@ -230,7 +230,6 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
     
     func createNodeOf(type type:tileType, location:CGPoint) {
         let atlasTiles = SKTextureAtlas(named: "world")
-
         switch type {
         case .tileAir:
             break
@@ -248,7 +247,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             node.physicsBody?.categoryBitMask = ColliderType.Tree.rawValue
             node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
             node.physicsBody?.collisionBitMask = ColliderType.None.rawValue
-            node.name = "Tree"
+            node.name = "treeNode"
             worldLayer.addChild(node)
             break
         case .tileRock:
@@ -263,7 +262,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             node.physicsBody?.categoryBitMask = ColliderType.Rock.rawValue
             node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
             node.physicsBody?.collisionBitMask = ColliderType.None.rawValue
-            node.name = "Rock"
+            node.name = "rockNode"
             worldLayer.addChild(node)
             break
         case .tilePost:
@@ -273,18 +272,25 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             node.size = CGSize(width: 16, height: 16)
             node.position = location
             node.zPosition = 50
-            node.name = "Post"
+            node.name = "postNode"
             worldLayer.addChild(node)
             
             let actionAnimation = SKAction.animateWithTextures([atlasTiles.textureNamed("post_16x16_00"), atlasTiles.textureNamed("post_16x16_01")], timePerFrame: 0.2)
             node.runAction(SKAction.repeatActionForever(actionAnimation))
             break
         case .tileGate:
-            let gateEntity = GateEntity()
-            gateEntity.spriteComponent.node.name = "gateNode"
-            gateEntity.spriteComponent.node.position = CGPoint(x: location.x-4, y: location.y-7)
-            gateEntity.spriteComponent.node.zPosition = 5
-            addEntity(gateEntity)
+            let texture = atlasTiles.textureNamed("snow_16x32_00")
+            let node = SKSpriteNode(texture: texture)
+            node.size = CGSize(width: 16, height: 2)
+            node.position = CGPoint(x: location.x-4, y: location.y-7)
+            node.zPosition = 5
+            node.name = "gateNode"
+            node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 16, height: 2))
+            node.physicsBody?.categoryBitMask = ColliderType.Gate.rawValue
+            node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
+            node.physicsBody?.collisionBitMask = ColliderType.None.rawValue
+            node.physicsBody?.dynamic = true
+            worldLayer.addChild(node)
             break
         case .tileStart:
             let playerEntity = PlayerEntity()
@@ -293,21 +299,28 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             playerNode.name = "playerNode"
             playerNode.zPosition = 10
             playerNode.anchorPoint = CGPointMake(0.5, 0.2)
-            playerEntity.animationComponent.requestedAnimationState = .Idle
+            // playerEntity.animationComponent.requestedAnimationState = .Idle
             addEntity(playerEntity)
-            
+
             var startCameraPosition: CGPoint = location
             startCameraPosition = CGPoint(x: ((size.width/2)*kScaleAmount) - 10, y: location.y - 60) // Adding 10 points buffer and 60 points offset to the top
             print(startCameraPosition)
             centerCameraOnPoint(startCameraPosition)
             break
         case .tileFinish:
-            let finishEntity = FinishEntity()
-            let finishNode = finishEntity.spriteComponent.node
-            finishNode.name = "finish"
-            finishNode.position = location
-            finishNode.zPosition = 50
-            addEntity(finishEntity)
+            let texture = atlasTiles.textureNamed("finish_192x64_00")
+            texture.filteringMode = SKTextureFilteringMode.Nearest
+            let node = SKSpriteNode(texture: texture)
+            node.size = CGSize(width: 192, height: 64)
+            node.position = location
+            node.zPosition = 50
+            node.name = "finishNode"
+            node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 192, height: 144), center: CGPoint(x: 0,y: 64))
+            node.physicsBody?.categoryBitMask = ColliderType.Finish.rawValue
+            node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
+            node.physicsBody?.collisionBitMask = ColliderType.None.rawValue
+            node.physicsBody?.dynamic = true
+            worldLayer.addChild(node)
             break
         default:
             break
@@ -345,7 +358,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
         let bodyB = contact.bodyB.node
         
         // Did Player reach the finish line?
-        if bodyA?.name == "finish" && bodyB?.name == "playerNode" {
+        if bodyA?.name == "finishNode" && bodyB?.name == "playerNode" {
             stateMachine.enterState(GameSceneFinishState.self)
             movement = CGPointZero
             runAction(SKAction.playSoundFileNamed("Skiier_Finish.m4a", waitForCompletion: false))
@@ -364,23 +377,20 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
                 worldLayer.addChild(scoreLabel)
             }
         }
-        // Did Player hit a tree?
-        if bodyA?.name == "Tree" && bodyB?.name == "playerNode" {
-            stateMachine.enterState(GameSceneLimboState.self)
-            self.runAction(SKAction.sequence([SKAction.waitForDuration(4),SKAction.runBlock({ () -> Void in
-                bodyA!.removeFromParent()
-                self.movement = CGPointZero
-                self.stateMachine.enterState(GameSceneActiveState.self)
-            })]))
-        }
-        // Did Player hit a rock?
-        if bodyA?.name == "Rock" && bodyB?.name == "playerNode" {
-            stateMachine.enterState(GameSceneLimboState.self)
-            self.runAction(SKAction.sequence([SKAction.waitForDuration(4),SKAction.runBlock({ () -> Void in
-                bodyA!.removeFromParent()
-                self.movement = CGPointZero
-                self.stateMachine.enterState(GameSceneActiveState.self)
-            })]))
+        // Did Player hit a tree or rock?
+        if bodyA?.name == "treeNode" || bodyA?.name == "rockNode" {
+            if bodyB?.name == "playerNode" {
+                stateMachine.enterState(GameSceneLimboState.self)
+                let atlasTiles = SKTextureAtlas(named: "player")
+                bodyB!.runAction(SKAction.animateWithTextures([atlasTiles.textureNamed("skiier_crash_23x13_00"), atlasTiles.textureNamed("skiier_crash_23x10_01"), atlasTiles.textureNamed("skiier_crash_23x13_02"), atlasTiles.textureNamed("skiier_crash_23x13_02")], timePerFrame: 1))
+                bodyB!.runAction(SKAction.moveToY(bodyB!.position.y - 32, duration: 2))
+                self.runAction(SKAction.sequence([SKAction.waitForDuration(4),SKAction.runBlock({ () -> Void in
+                    bodyA!.removeFromParent()
+                    self.movement = CGPointZero
+                    bodyB!.position.y = bodyB!.position.y + 48
+                    self.stateMachine.enterState(GameSceneActiveState.self)
+                })]))
+            }
         }
     }
 

@@ -22,12 +22,12 @@ class PlayerMoveComponent: GKComponent {
         return spriteComponent
     }
     
-    var animationComponent: AnimationComponent {
-        guard let animationComponent = entity?.componentForClass(AnimationComponent.self) else {
-            fatalError("A MovementComponent's entity must have an animationComponent")
-        }
-        return animationComponent
-    }
+    //var animationComponent: AnimationComponent {
+    //    guard let animationComponent = entity?.componentForClass(AnimationComponent.self) else {
+    //        fatalError("A MovementComponent's entity must have an animationComponent")
+    //    }
+    //    return animationComponent
+    //}
     
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
         super.updateWithDeltaTime(seconds)
@@ -39,11 +39,11 @@ class PlayerMoveComponent: GKComponent {
         spriteComponent.node.position = CGPoint(x: spriteComponent.node.position.x + xMovement, y: spriteComponent.node.position.y + yMovement)
         
         if movement.x < -0.2 {
-            animationComponent.requestedAnimationState = .Move_Left
+            spriteComponent.node.texture = PlayerEntity.getTexture("Left")
         } else if movement.x > 0.2 {
-            animationComponent.requestedAnimationState = .Move_Right
+            spriteComponent.node.texture = PlayerEntity.getTexture("Right")
         } else {
-            animationComponent.requestedAnimationState = .Idle
+            spriteComponent.node.texture = PlayerEntity.getTexture("Idle")
         }
         
         movement = CGPointZero
