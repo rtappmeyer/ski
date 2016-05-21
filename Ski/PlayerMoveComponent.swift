@@ -22,13 +22,6 @@ class PlayerMoveComponent: GKComponent {
         return spriteComponent
     }
     
-    //var animationComponent: AnimationComponent {
-    //    guard let animationComponent = entity?.componentForClass(AnimationComponent.self) else {
-    //        fatalError("A MovementComponent's entity must have an animationComponent")
-    //    }
-    //    return animationComponent
-    //}
-    
     override func updateWithDeltaTime(seconds: NSTimeInterval) {
         super.updateWithDeltaTime(seconds)
         

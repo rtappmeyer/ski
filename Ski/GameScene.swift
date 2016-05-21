@@ -275,7 +275,10 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             node.name = "postNode"
             worldLayer.addChild(node)
             
-            let actionAnimation = SKAction.animateWithTextures([atlasTiles.textureNamed("post_16x16_00"), atlasTiles.textureNamed("post_16x16_01")], timePerFrame: 0.2)
+            let actionAnimation = SKAction.animateWithTextures([
+                atlasTiles.textureNamed("post_16x16_00"),
+                atlasTiles.textureNamed("post_16x16_01")
+            ], timePerFrame: 0.2)
             node.runAction(SKAction.repeatActionForever(actionAnimation))
             break
         case .tileGate:
@@ -299,7 +302,6 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
             playerNode.name = "playerNode"
             playerNode.zPosition = 10
             playerNode.anchorPoint = CGPointMake(0.5, 0.2)
-            // playerEntity.animationComponent.requestedAnimationState = .Idle
             addEntity(playerEntity)
 
             var startCameraPosition: CGPoint = location
@@ -381,13 +383,52 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate {
         if bodyA?.name == "treeNode" || bodyA?.name == "rockNode" {
             if bodyB?.name == "playerNode" {
                 stateMachine.enterState(GameSceneLimboState.self)
+                // Turn off collisions while crash is in progress
+                bodyB?.physicsBody?.contactTestBitMask = 0
+                bodyB?.physicsBody?.collisionBitMask = 0
+                bodyB?.physicsBody?.categoryBitMask = 0
+                // Player fall animation sequence
                 let atlasTiles = SKTextureAtlas(named: "player")
-                bodyB!.runAction(SKAction.animateWithTextures([atlasTiles.textureNamed("skiier_crash_23x13_00"), atlasTiles.textureNamed("skiier_crash_23x10_01"), atlasTiles.textureNamed("skiier_crash_23x13_02"), atlasTiles.textureNamed("skiier_crash_23x13_02")], timePerFrame: 1))
-                bodyB!.runAction(SKAction.moveToY(bodyB!.position.y - 32, duration: 2))
-                self.runAction(SKAction.sequence([SKAction.waitForDuration(4),SKAction.runBlock({ () -> Void in
+                bodyB!.runAction(SKAction.animateWithTextures([
+                    atlasTiles.textureNamed("skiier_crash_18x17_00"),
+                    atlasTiles.textureNamed("skiier_crash_21x13_01"),
+                    atlasTiles.textureNamed("skiier_crash_23x10_02"),
+                    atlasTiles.textureNamed("skiier_crash_24x15_03"),
+                    SKTexture(), SKTexture(), SKTexture(), SKTexture(),
+                    SKTexture(), SKTexture(), SKTexture(), SKTexture(),
+                    SKTexture(), SKTexture(), SKTexture(), SKTexture()
+                    ], timePerFrame: 0.25, resize: true, restore: true))
+                // Player sliding down while falling
+                bodyB!.runAction(SKAction.moveToY(bodyB!.position.y - 48, duration: 1))
+                // Camera jolt sequence
+                if let camera = camera {
+                    let joltUp = CGPoint(x: camera.position.x, y: camera.position.y - 2)
+                    let joltDown = CGPoint(x: camera.position.x, y: camera.position.y + 2)
+                    self.runAction(SKAction.sequence([
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltUp) }), SKAction.waitForDuration(0.05),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltDown) }), SKAction.waitForDuration(0.10),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltUp) }), SKAction.waitForDuration(0.05),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltDown) }), SKAction.waitForDuration(0.15),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltUp) }), SKAction.waitForDuration(0.05),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltDown) }), SKAction.waitForDuration(0.20),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltUp) }), SKAction.waitForDuration(0.05),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltDown) }), SKAction.waitForDuration(0.25),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltUp) }), SKAction.waitForDuration(0.05),
+                        SKAction.runBlock({ self.centerCameraOnPoint(joltDown) }), SKAction.waitForDuration(0.30)
+                    ]))
+                }
+                // Wait for 4 seconds then restart
+                self.runAction(SKAction.sequence([SKAction.waitForDuration(4), SKAction.runBlock({ () -> Void in
+                    // Remove the tree/rock the player crashed into
                     bodyA!.removeFromParent()
+                    // Reset the movement (joystick)
                     self.movement = CGPointZero
+                    // Move the player back up to where it crashed
                     bodyB!.position.y = bodyB!.position.y + 48
+                    // Turn collisions back on
+                    bodyB?.physicsBody?.categoryBitMask = ColliderType.Player.rawValue
+                    bodyB?.physicsBody?.collisionBitMask = ColliderType.None.rawValue
+                    bodyB?.physicsBody?.contactTestBitMask = ColliderType.Gate.rawValue | ColliderType.Tree.rawValue | ColliderType.Rock.rawValue
                     self.stateMachine.enterState(GameSceneActiveState.self)
                 })]))
             }

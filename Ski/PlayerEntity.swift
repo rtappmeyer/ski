@@ -17,7 +17,7 @@ class PlayerEntity: GKEntity {
     override init() {
         super.init()
         
-        let texture = SKTexture(imageNamed: "Skiier_Idle_16x19_00.png")
+        let texture = PlayerEntity.getTexture("Idle")
         texture.filteringMode = SKTextureFilteringMode.Nearest
         
         spriteComponent = SpriteComponent(entity: self, texture: texture, size: CGSize(width: 16, height: 19))
