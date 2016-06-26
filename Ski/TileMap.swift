@@ -1,5 +1,5 @@
 //
-//  LevelMaker.swift
+//  TileMap.swift
 //  Ski
 //
 //  Created by Ralf Tappmeyer on 5/7/16.
@@ -14,21 +14,38 @@ protocol tileMapDelegate {
 }
 
 enum tileType: Int {
-    case tileAir = 0
-    case tileSnow = 1
-    case tileTree = 2
-    case tileRock = 3
-    case tilePost = 4
-    case tileGate = 5
-    case tileStart = 6
-    case tileFinish = 7
+    case
+    tileAir = 0,
+    tileSnow = 1,
+    tileTree = 2,
+    tileRock = 3,
+    tilePostLeft = 4,
+    tileGate = 5,
+    tilePostRight = 6,
+    tileStart = 7,
+    tileFinish = 8
+}
+
+enum tileCharacter: String {
+    case
+    tileAir = "",
+    tileSnow = " ",
+    tileTree = "G",
+    tileRock = "m",
+    tilePostLeft = "q",
+    tileGate = ".",
+    tilePostRight = "p",
+    tileStart = "I",
+    tileFinish = "F"
+    
+    static let getAll = [tileAir, tileSnow, tileTree, tileRock, tilePostLeft, tileGate, tilePostRight, tileStart, tileFinish]
 }
 
 struct tileMap {
     var delegate: tileMapDelegate?
     var tileSize = CGSize(width: 16, height: 32)
     var tileLayer: [[Int]] = Array()
-    var mapSize = CGPoint(x: 16, y: 128)
+    var mapSize = CGPoint(x: 16, y: 128) // TODO: put it back to 128
     
     mutating func generateLevel(defaultValue: Int) {
         var columnArray:[[Int]] = Array()
@@ -53,6 +70,22 @@ struct tileMap {
         return tileLayer[Int(position.y)][Int(position.x)]
     }
     
+    func getTileFromPoint(point: CGPoint) -> Int {
+        let tilePoint = CGPointMake(point.x / 16, (point.y / 32) * -1)
+        print(tilePoint)
+        return getTile(position: tilePoint)
+    }
+    
+    func getTilesInRowOfPoint(point: CGPoint) -> [Int] {
+        var rowArray = [Int]()
+        var pos = 0
+        repeat {
+            rowArray.append(getTile(position: CGPoint(x: pos, y: Int(point.y / 32) * -1)))
+            pos += 1
+        } while rowArray.count < Int(mapSize.x)
+        return rowArray
+    }
+    
     func tilemapSize() -> CGSize {
         return CGSize(width: tileSize.width * mapSize.x, height:
             tileSize.height * mapSize.y)
@@ -62,27 +95,15 @@ struct tileMap {
     mutating func createLevel() {
         
         // Read Level from File
-        let levelData = readLinesFromTextFile("ski_level1.txt")
+        let levelData = readLinesFromTextFile("ski_level1.txt") // TODO: replace with ski_level1.txt
         
         // Read lines of level data description
         var row: Int = 0
         for line in levelData {
             var pos: Int = 0
             for index in line.characters.indices {
-                if line[index] == "G" {                                     // Tree
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 2)
-                } else if line[index] == "m" {                              // Rock
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 3)
-                } else if line[index] == "P" {                              // Post
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 4)
-                } else if line[index] == "." {                              // Gate
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 5)
-                } else if line[index] == "I" {                              // Start
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 6)
-                } else if line[index] == "F" {                              // Finish
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 7)
-                } else {                                                    // Snow
-                    setTile(position: CGPoint(x: pos, y: row), toValue: 1)
+                if let foundIndex = tileCharacter.getAll.indexOf({$0.rawValue == String(line[index])}) {
+                    setTile(position: CGPoint(x: pos, y: row), toValue: foundIndex)
                 }
                 pos += 1
             }

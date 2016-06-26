@@ -9,9 +9,19 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SkiTV.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>FB2159FE1D0B651F00F9A97A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>FBAED8A71CB9C8A800438E3F</key>
 		<dict>
 			<key>primary</key>
