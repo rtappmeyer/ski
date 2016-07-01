@@ -97,7 +97,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         switch stateMachine.currentState {
         case is GameSceneActiveState:
             // Control the player
-            #if (iOS)
+            #if os(iOS)
             if touches.count > 0  {
                 for touch in touches {
                     beginTouchLocation = touch.locationInNode(self)
@@ -120,7 +120,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        #if (iOS)
+        #if os(iOS)
         if touches.count > 0 {
             for touch in touches {
                 let dragLocation = touch.locationInNode(self)
@@ -140,7 +140,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        #if (iOS)
+        #if os(iOS)
         if touches.count > 0 {
             // slow down the player
             inputPushButtonPressed = false
