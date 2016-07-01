@@ -53,12 +53,5 @@ class GateEntity: GKEntity {
         renderComponent.node.addChild(gateNode)
         
     }
-    
-    func runOverPost(postNode: PostNode) {
-        postNode.displayCrookedPost()
-    }
-    
-    func didPassGate(score: Int) {
-        gateNode.displayGateScore(score)
-    }
+
 }

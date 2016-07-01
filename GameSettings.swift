@@ -34,6 +34,11 @@ struct sceneSettings {
     static let beforeBonusDuration: NSTimeInterval = 3.0
 }
 
+struct controllerSettings {
+    static let microControllerDeadZone: Float = 0.3 // 0 = no deadzone
+    static let microControllerNumbingRatio: Float = 0.7 // 1.0 = not numb, 0 = entirely numb
+}
+
 struct gateSettings {
     static let minScoringMultiplier = 4
     static let maxScoringMultiplier = 8

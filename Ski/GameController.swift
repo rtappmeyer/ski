@@ -81,21 +81,28 @@ class GameController {
                 if gameControllerType! == .micro,
                     let microPad:GCMicroGamepad = gameController.microGamepad {
                     
+                    microPad.allowsRotation = true
+                    microPad.reportsAbsoluteDpadValues = true // TODO: look into this one
+                    microPad.dpad.valueChangedHandler = { dpad, xValue, yValue in
+                        if self.delegate != nil {
+                            // Create a deadzone, and numbing to make it playable with the Micro Controller
+                            if xValue < controllerSettings.microControllerDeadZone * -1 {
+                                self.delegate!.stickEvent("leftstick", point: CGPointMake(CGFloat(xValue * controllerSettings.microControllerNumbingRatio), 0))
+                            } else if xValue > controllerSettings.microControllerDeadZone {
+                                self.delegate!.stickEvent("leftstick", point: CGPointMake(CGFloat(xValue * controllerSettings.microControllerNumbingRatio), 0))
+                            } else {
+                                self.delegate!.stickEvent("leftstick", point:CGPointMake(0,0))
+                            }
+                        }
+                    }
                     microPad.buttonA.valueChangedHandler = { button, value, pressed in
                         if self.delegate != nil {
                             self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
                         }
                     }
-                    
-                    microPad.allowsRotation = true
-                    microPad.reportsAbsoluteDpadValues = true
-                    microPad.dpad.valueChangedHandler = { dpad, xValue, yValue in
-                        if self.delegate != nil && !microPad.buttonX.pressed {
-                            self.delegate!.stickEvent("leftstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
-                        }
-                        if self.delegate != nil && microPad.buttonX.pressed {
-                            self.delegate!.stickEvent("rightstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
-                            self.delegate!.stickEvent("leftstick", point:CGPoint(x: 0.0,y: 0.0))
+                    microPad.buttonX.valueChangedHandler = { button, value, pressed in
+                        if self.delegate != nil {
+                            self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
                         }
                     }
                 }

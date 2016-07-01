@@ -50,8 +50,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     var timeLimitSeconds = 60
     
     // Touch Debugging
-    let touchBox = SKSpriteNode(color: UIColor.redColor(), size:
-        CGSize(width: 100, height: 100))
+    //let touchBox = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 100, height: 100))
     
     // MARK: Life Cycle
     
@@ -85,7 +84,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         guiLayer.addChild(timeLabel)
         
         // Touch debugging
-        addChild(touchBox)
+        //addChild(touchBox)
 
         // Entering Gamestates
         stateMachine.enterState(GameSceneInitialState.self)
@@ -98,14 +97,15 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         switch stateMachine.currentState {
         case is GameSceneActiveState:
             // Control the player
+            #if (iOS)
             if touches.count > 0  {
                 for touch in touches {
                     beginTouchLocation = touch.locationInNode(self)
-                    touchBox.position = beginTouchLocation
+                    //touchBox.position = beginTouchLocation
                 }
                 inputPushButtonPressed = true
             }
-            
+            #endif
         case is GameSceneFinishState:
             // Restart the game
             restartLevel()
@@ -120,10 +120,11 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        #if (iOS)
         if touches.count > 0 {
             for touch in touches {
                 let dragLocation = touch.locationInNode(self)
-                touchBox.position = dragLocation
+                //touchBox.position = dragLocation
                 if (dragLocation.x - beginTouchLocation.x >= 100 || dragLocation.x - beginTouchLocation.x <= -100) {
                     // Dragged too far, reset the location
                     beginTouchLocation = dragLocation
@@ -135,13 +136,16 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
             // Speed up the player
             inputPushButtonPressed = true
         }
+        #endif
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        #if (iOS)
         if touches.count > 0 {
             // slow down the player
             inputPushButtonPressed = false
         }
+        #endif
     }
 
     
@@ -150,9 +154,8 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     func buttonEvent(event: String, velocity: Float, pushedOn: Bool) {
         switch stateMachine.currentState {
         case is GameSceneActiveState:
-            if event == "buttonA" {
+            if event == "buttonX" {
                 // Speed up the player
-                inputPushButtonPressed = true
                 if pushedOn == true {
                     inputPushButtonPressed = true
                 }
@@ -211,7 +214,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         //if scene.paused { return }
         
         // Player controls and camera
-        if !(inputMovement == CGPointZero) && !(playerEntity.reachedFinishLine){
+        if !(playerEntity.reachedFinishLine){
             if let playerMoveComponent = playerEntity.componentForClass(MoveComponent.self) {
                 playerMoveComponent.movement = inputMovement
                 playerMoveComponent.pushButton = inputPushButtonPressed
@@ -282,7 +285,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
                     let gateNode = postNode.parent as! GateNode
                     if let gateEntity = gateNode.entity {
                         gateEntity.stateComponent.stateMachine.enterState(GateRunOverPostState.self)
-                        gateEntity.runOverPost(postNode) // TODO: move this one into the GateRunOverPostState class
+                        postNode.displayCrookedPost()
                     }
                     playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
                 }
@@ -319,7 +322,9 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
                         let score = gateSettings.score * playerEntity.gateScoringMultiplier
                         
                         // Display the score in the gate
-                        gateEntity.didPassGate(score)
+                        //gateEntity.didPassGate(score)
+                        let gateNode = gateEntity.gateNode
+                        gateNode.displayGateScore(score)
                         
                         // Award player with this core
                         playerEntity.score += score
