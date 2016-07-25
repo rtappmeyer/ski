@@ -272,9 +272,13 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         // Did Player ran outside a gate?
         if bodyA?.name == "missedNode" {
             if bodyB?.name == "playerNode" {
-                if let gateEntity = (bodyA as? EntityNode)?.entity as? GateEntity {
-                    gateEntity.stateComponent.stateMachine.enterState(GateRunOutsideState.self)
-                    playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                if let missedNode = bodyA as? MissedNode {
+                    if let gateNode = missedNode.parent as? GateNode {
+                        if let gateEntity = gateNode.entity {
+                            gateEntity.stateComponent.stateMachine.enterState(GateRunOutsideState.self)
+                            playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                        }
+                    }
                 }
             }
         }

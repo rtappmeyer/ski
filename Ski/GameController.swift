@@ -135,6 +135,11 @@ class GameController {
                         self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
                     }
                 }
+                pad.buttonX.valueChangedHandler = { button, value, pressed in
+                    if self.delegate != nil {
+                        self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
+                    }
+                }
                 pad.dpad.up.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
                         self.delegate!.buttonEvent("dpad_up", velocity: value, pushedOn: pressed)
@@ -163,6 +168,11 @@ class GameController {
             extendedPad.buttonA.valueChangedHandler = { button, value, pressed in
                 if self.delegate != nil {
                     self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
+                }
+            }
+            extendedPad.buttonX.valueChangedHandler = { button, value, pressed in
+                if self.delegate != nil {
+                    self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
                 }
             }
             //2
