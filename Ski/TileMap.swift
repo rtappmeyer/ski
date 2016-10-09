@@ -10,7 +10,7 @@ import SpriteKit
 import GameplayKit
 
 protocol tileMapDelegate {
-    func createNodeOf(type type:tileType, location:CGPoint)
+    func createNodeOf(type:tileType, location:CGPoint)
 }
 
 enum tileType: Int {
@@ -23,7 +23,8 @@ enum tileType: Int {
     tileGate = 5,
     tilePostRight = 6,
     tileStart = 7,
-    tileFinish = 8
+    tileFinish = 8,
+    tileOpponent = 9
 }
 
 enum tileCharacter: String {
@@ -36,9 +37,10 @@ enum tileCharacter: String {
     tileGate = ".",
     tilePostRight = "p",
     tileStart = "I",
-    tileFinish = "F"
+    tileFinish = "F",
+    tileOpponent = "O"
     
-    static let getAll = [tileAir, tileSnow, tileTree, tileRock, tilePostLeft, tileGate, tilePostRight, tileStart, tileFinish]
+    static let getAll = [tileAir, tileSnow, tileTree, tileRock, tilePostLeft, tileGate, tilePostRight, tileStart, tileFinish, tileOpponent]
 }
 
 struct tileMap {
@@ -62,16 +64,16 @@ struct tileMap {
     }
     
     // MARK: Setters and getters for the tile map
-    mutating func setTile(position position:CGPoint, toValue:Int) {
+    mutating func setTile(position:CGPoint, toValue:Int) {
         tileLayer[Int(position.y)][Int(position.x)] = toValue
     }
     
-    func getTile(position position:CGPoint) -> Int {
+    func getTile(position:CGPoint) -> Int {
         return tileLayer[Int(position.y)][Int(position.x)]
     }
     
     func getTileFromPoint(point: CGPoint) -> Int {
-        let tilePoint = CGPointMake(point.x / 16, (point.y / 32) * -1)
+        let tilePoint = CGPoint(x: point.x / 16, y: (point.y / 32) * -1)
         print(tilePoint)
         return getTile(position: tilePoint)
     }
@@ -95,14 +97,14 @@ struct tileMap {
     mutating func createLevel() {
         
         // Read Level from File
-        let levelData = readLinesFromTextFile("ski_level1.txt") // TODO: replace with ski_level1.txt
+        let levelData = readLinesFromTextFile(fileName: "ski_level1.txt") // TODO: replace with ski_level1.txt
         
         // Read lines of level data description
         var row: Int = 0
         for line in levelData {
             var pos: Int = 0
             for index in line.characters.indices {
-                if let foundIndex = tileCharacter.getAll.indexOf({$0.rawValue == String(line[index])}) {
+                if let foundIndex = tileCharacter.getAll.index(where: {$0.rawValue == String(line[index])}) {
                     setTile(position: CGPoint(x: pos, y: row), toValue: foundIndex)
                 }
                 pos += 1
@@ -113,8 +115,8 @@ struct tileMap {
     
     // MARK: Presenting the layer
     func presentLayerViaDelegate() {
-        for (indexr, row) in tileLayer.enumerate() {
-            for (indexc, cvalue) in row.enumerate() {
+        for (indexr, row) in tileLayer.enumerated() {
+            for (indexc, cvalue) in row.enumerated() {
                 if (delegate != nil) {
                     delegate!.createNodeOf(type: tileType(rawValue: cvalue)!, location: CGPoint(x: tileSize.width * CGFloat(indexc), y: tileSize.height * CGFloat(-indexr)))
                 }
@@ -125,12 +127,12 @@ struct tileMap {
     // MARK: Utility
     func readLinesFromTextFile(fileName: String) -> [String] {
         // Reads lines from a text file
-        guard let path = NSBundle.mainBundle().pathForResource(fileName, ofType: nil) else {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else {
             fatalError("Resource file for \(fileName) not found.")
         }
         do {
-            let content = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
-            return content.componentsSeparatedByString("\n")
+            let content = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
+            return content.components(separatedBy: "\n")
         } catch let error {
             fatalError("Could not load strings from \(path): \(error).")
         }

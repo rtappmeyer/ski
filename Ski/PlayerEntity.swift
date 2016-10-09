@@ -12,7 +12,7 @@ import GameplayKit
 class PlayerEntity: GKEntity {
     // MARK: Properties
     
-    var elapsedTime: NSTimeInterval
+    var elapsedTime: TimeInterval
     var score: Int
     var gateScoringMultiplier: Int
     
@@ -20,7 +20,7 @@ class PlayerEntity: GKEntity {
     var reachedFinishLine: Bool
     
     var renderComponent: RenderComponent {
-        guard let renderComponent = componentForClass(RenderComponent.self) else { fatalError("A PlayerEntity must have a RenderComponent.") }
+        guard let renderComponent = component(ofType: RenderComponent.self) else { fatalError("A PlayerEntity must have a RenderComponent.") }
         return renderComponent
     }
     
@@ -43,12 +43,12 @@ class PlayerEntity: GKEntity {
         
         let atlas = SKTextureAtlas(named: "player")
         let defaultTexture = atlas.textureNamed("idle__00.png")
-        defaultTexture.filteringMode = SKTextureFilteringMode.Nearest
-        let size = CGSizeMake(16, 19)
+        defaultTexture.filteringMode = SKTextureFilteringMode.nearest
+        let size = CGSize(width: 16, height: 19)
         
         let spriteComponent = SpriteComponent(texture: defaultTexture, size: size)
         addComponent(spriteComponent)
-        spriteComponent.node.anchorPoint = CGPointMake(0.5, 0.2)
+        spriteComponent.node.anchorPoint = CGPoint(x: 0.5, y: 0.2)
         
         let animationComponent = AnimationComponent(node: spriteComponent.node, textureSize: size, animations: loadAnimations())
         addComponent(animationComponent)
@@ -57,8 +57,8 @@ class PlayerEntity: GKEntity {
         addComponent(moveComponent)
         
         let physicsBody = SKPhysicsBody(circleOfRadius: 4)
-        physicsBody.categoryBitMask = ColliderType.Player.rawValue
-        physicsBody.contactTestBitMask = ColliderType.Gate.rawValue | ColliderType.Obstacle.rawValue | ColliderType.Finish.rawValue
+        physicsBody.categoryBitMask = ColliderType.player.rawValue
+        physicsBody.contactTestBitMask = ColliderType.gate.rawValue | ColliderType.obstacle.rawValue | ColliderType.finish.rawValue
             
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody)
         addComponent(physicsComponent)
@@ -77,14 +77,18 @@ class PlayerEntity: GKEntity {
         // Connect the SpriteComponent with the RenderComponent
         renderComponent.node.addChild(spriteComponent.node)
     }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func loadAnimations() -> [AnimationState: Animation] {
         let textureAtlas = SKTextureAtlas(named: "player")
         var animations = [AnimationState: Animation]()
-        animations[.Idle] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: "idle", forAnimationState: .Idle)
-        animations[.Left] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: "left", forAnimationState: .Left)
-        animations[.Right] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: "right", forAnimationState: .Right)
-        animations[.Crash] = AnimationComponent.animationFromAtlas(textureAtlas, withImageIdentifier: "crash", forAnimationState: .Crash, repeatTexturesForever: false)
+        animations[.idle] = AnimationComponent.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "idle", forAnimationState: .idle)
+        animations[.left] = AnimationComponent.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "left", forAnimationState: .left)
+        animations[.right] = AnimationComponent.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "right", forAnimationState: .right)
+        animations[.crash] = AnimationComponent.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "crash", forAnimationState: .crash, repeatTexturesForever: false)
         return animations
     }
 

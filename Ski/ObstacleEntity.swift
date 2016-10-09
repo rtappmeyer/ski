@@ -21,7 +21,7 @@ class ObstacleEntity: GKEntity {
     let obstacleType: ObstacleType
     
     var renderComponent: RenderComponent {
-        guard let renderComponent = componentForClass(RenderComponent.self) else { fatalError("A PlayerEntity must have an RenderComponent.") }
+        guard let renderComponent = component(ofType: RenderComponent.self) else { fatalError("A PlayerEntity must have an RenderComponent.") }
         return renderComponent
     }
     
@@ -34,32 +34,32 @@ class ObstacleEntity: GKEntity {
         addComponent(renderComponent)
         
         let atlas = SKTextureAtlas(named: "world")
-        var size = CGSizeZero
+        var size = CGSize.zero
         var texture = SKTexture()
-        var contactSize = CGSizeZero
-        var contactOffset = CGPointZero
+        var contactSize = CGSize.zero
+        var contactOffset = CGPoint.zero
         
         switch obstacleType {
         case .Tree:
             texture = atlas.textureNamed(ObstacleType.Tree.rawValue)
-            size = CGSizeMake(30, 32)
-            contactSize = CGSizeMake(8, 12)
-            contactOffset = CGPointMake(0.0, -10.0)
+            size = CGSize(width: 30, height: 32)
+            contactSize = CGSize(width: 8, height: 12)
+            contactOffset = CGPoint(x: 0.0, y: -10.0)
         case .Rock:
             texture = atlas.textureNamed(ObstacleType.Rock.rawValue)
-            size = CGSizeMake(16, 12)
-            contactSize = CGSizeMake(14, 8)
-            contactOffset = CGPointMake(0.0, -2.0)
+            size = CGSize(width: 16, height: 12)
+            contactSize = CGSize(width: 14, height: 8)
+            contactOffset = CGPoint(x: 0.0, y: -2.0)
         }
         
-        texture.filteringMode = SKTextureFilteringMode.Nearest
+        texture.filteringMode = SKTextureFilteringMode.nearest
         
         let spriteComponent = SpriteComponent(texture: texture, size: size)
         addComponent(spriteComponent)
         
-        let physicsBody = SKPhysicsBody(rectangleOfSize: contactSize, center: contactOffset)
-        physicsBody.categoryBitMask = ColliderType.Obstacle.rawValue
-        physicsBody.contactTestBitMask = ColliderType.Player.rawValue
+        let physicsBody = SKPhysicsBody(rectangleOf: contactSize, center: contactOffset)
+        physicsBody.categoryBitMask = ColliderType.obstacle.rawValue
+        physicsBody.contactTestBitMask = ColliderType.player.rawValue
         
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody)
         addComponent(physicsComponent)
@@ -67,5 +67,9 @@ class ObstacleEntity: GKEntity {
         renderComponent.node.physicsBody = physicsComponent.physicsBody
         renderComponent.node.addChild(spriteComponent.node)
 
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

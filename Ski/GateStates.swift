@@ -24,8 +24,8 @@ class GateState: GKState {
 class GateIdleState: GateState {
     // MARK: GKState Life Cycle
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        super.didEnterWithPreviousState(previousState)
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
         // The gate is idle (untouched)
     }
 }
@@ -33,8 +33,8 @@ class GateIdleState: GateState {
 class GatePassedState: GateState {
     // MARK: GKState Life Cycle
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        super.didEnterWithPreviousState(previousState)
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
         // The gate is considered ok
     }
 }
@@ -42,12 +42,12 @@ class GatePassedState: GateState {
 class GateRunOverPostState: GateState {
     // MARK: GKState Life Cycle
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        super.didEnterWithPreviousState(previousState)
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
         // The gate is not going to count, because the post was run over
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is GateRunOutsideState.Type
     }
 }
@@ -55,12 +55,12 @@ class GateRunOverPostState: GateState {
 class GateRunOutsideState: GateState {
     // MARK: GKState Life Cycle
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        super.didEnterWithPreviousState(previousState)
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
         // The gate is missed
     }
     
-    override func isValidNextState(stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass is GateRunOverPostState.Type
     }
 }

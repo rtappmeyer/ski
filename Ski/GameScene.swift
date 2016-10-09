@@ -16,12 +16,16 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     var worldLayer = SKNode()
     var guiLayer = SKNode()
     var overlayLayer = SKNode()
+    var onScreenControlsLayer = SKNode()
     
-    let playerEntity = PlayerEntity()
     var entities = Set<GKEntity>()
     
     var scoreLabel = SKLabelNode()
     var timeLabel = SKLabelNode()
+    
+    var leftButton = ButtonNode(buttonType: ButtonType.left)
+    var rightButton = ButtonNode(buttonType: ButtonType.right)
+    var fastButton = ButtonNode(buttonType: ButtonType.fast)
     
     lazy var stateMachine: GKStateMachine = GKStateMachine(states: [
         GameSceneInitialState(scene: self),
@@ -37,16 +41,16 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         return [moveSystem, animationSystem, stateSystem]
     }()
     
-    var inputMovement = CGPointZero
+    var inputMovement = CGPoint.zero
     var inputPushButtonPressed = false
-    var beginTouchLocation = CGPointZero
+    var beginTouchLocation = CGPoint.zero
     
-    var lastUpdateTimeInterval: NSTimeInterval = 0
-    let maximumUpdateDeltaTime: NSTimeInterval = 1.0 / 60.0
-    var lastDeltaTime: NSTimeInterval = 0
+    var lastUpdateTimeInterval: TimeInterval = 0
+    let maximumUpdateDeltaTime: TimeInterval = 1.0 / 60.0
+    var lastDeltaTime: TimeInterval = 0
     
     var score = 0
-    var startTime = NSDate()
+    var startTime = Date()
     var timeLimitSeconds = 60
     
     // Touch Debugging
@@ -54,7 +58,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     
     // MARK: Life Cycle
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         // Delegates
         worldGenerator.delegate = self
         physicsWorld.contactDelegate = self
@@ -70,41 +74,61 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         addChild(worldLayer)
         camera!.addChild(guiLayer)
         guiLayer.addChild(overlayLayer)
+        overlayLayer.addChild(onScreenControlsLayer)
         
         // Game Controllers
         GameController.sharedInstance.delegate = self
         
         // Add Labels
-        scoreLabel = createLabel("scoreLabel", text: "00", position: CGPointMake(480, 230), color: UIColor.blackColor(), alignment: .Right)
-        timeLabel = createLabel("timeLabel", text: "00:00", position: CGPointMake(480, -60), color: UIColor.c64brownColor(), alignment: .Right)
+        scoreLabel = createLabel(name: "scoreLabel", text: "00", position: CGPoint(x: 480, y: 200), color: UIColor.black, alignment: .right)
+        timeLabel = createLabel(name: "timeLabel", text: "00:00", position: CGPoint(x: 480, y: -60), color: UIColor.c64brownColor(), alignment: .right)
         
-        guiLayer.addChild(createLabel("scoreTitleLabel", text: "Score", position: CGPointMake(480, 260), color: UIColor.blackColor(), alignment: .Right))
+        guiLayer.addChild(createLabel(name: "scoreTitleLabel", text: "Score", position: CGPoint(x: 480, y: 230), color: UIColor.black, alignment: .right))
         guiLayer.addChild(scoreLabel)
-        guiLayer.addChild(createLabel("timeTitleLabel", text: "Time", position: CGPointMake(480, -30), color: UIColor.c64brownColor(), alignment: .Right))
+        guiLayer.addChild(createLabel(name: "timeTitleLabel", text: "Time", position: CGPoint(x: 480, y: -30), color: UIColor.c64brownColor(), alignment: .right))
         guiLayer.addChild(timeLabel)
+        
+        // Add On-screen controls
+        #if os(iOS)
+            leftButton.node.position = CGPoint(x: controllerSettings.onScreenButtonLeftX, y: controllerSettings.onScreenButtonsY)
+            rightButton.node.position = CGPoint(x: controllerSettings.onScreenButtonRightX, y: controllerSettings.onScreenButtonsY)
+            fastButton.node.position = CGPoint(x: controllerSettings.onScreenButtonFastX, y: controllerSettings.onScreenButtonsY)
+            guiLayer.addChild(leftButton.node)
+            guiLayer.addChild(rightButton.node)
+            guiLayer.addChild(fastButton.node)
+        #endif
         
         // Touch debugging
         //addChild(touchBox)
 
         // Entering Gamestates
-        stateMachine.enterState(GameSceneInitialState.self)
+        stateMachine.enter(GameSceneInitialState.self)
     }
     
     
     // MARK: Touch handling delegate
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         switch stateMachine.currentState {
         case is GameSceneActiveState:
             // Control the player
             #if os(iOS)
-            if touches.count > 0  {
                 for touch in touches {
-                    beginTouchLocation = touch.locationInNode(self)
-                    //touchBox.position = beginTouchLocation
+                    let positionInScene = touch.location(in: self)
+                    let touchedNode = self.atPoint(positionInScene)
+                    if touchedNode.name == ButtonType.left.rawValue {
+                        inputMovement.x = -1
+                        leftButton.showHighlighted()
+                    }
+                    if touchedNode.name == ButtonType.right.rawValue {
+                        inputMovement.x = 1
+                        rightButton.showHighlighted()
+                    }
+                    if touchedNode.name == ButtonType.fast.rawValue {
+                        inputPushButtonPressed = true
+                        fastButton.showHighlighted()
+                    }
                 }
-                inputPushButtonPressed = true
-            }
             #endif
         case is GameSceneFinishState:
             // Restart the game
@@ -112,39 +136,56 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         
         case is GameScenePausedState:
             // Resume the game
-            self.stateMachine.enterState(GameSceneActiveState)
+            self.stateMachine.enter(GameSceneActiveState.self)
             
         default:
             break
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         #if os(iOS)
-        if touches.count > 0 {
             for touch in touches {
-                let dragLocation = touch.locationInNode(self)
-                //touchBox.position = dragLocation
-                if (dragLocation.x - beginTouchLocation.x >= 100 || dragLocation.x - beginTouchLocation.x <= -100) {
-                    // Dragged too far, reset the location
-                    beginTouchLocation = dragLocation
+                let positionInScene = touch.location(in: self)
+                let touchedNode = self.atPoint(positionInScene)
+                if touchedNode.name == ButtonType.left.rawValue {
+                    inputMovement.x = -1
+                    leftButton.showHighlighted()
+                } else if touchedNode.name == ButtonType.right.rawValue {
+                    inputMovement.x = 1
+                    rightButton.showHighlighted()
+                } else if touchedNode.name == ButtonType.fast.rawValue {
+                    // Uncommenting this: If touches moved, it shouldn't affect the fast button (on/off)
+                    //inputPushButtonPressed = true
+                    fastButton.showHighlighted()
                 } else {
-                    let touchMotion = CGPointMake((dragLocation.x - beginTouchLocation.x)/100, (dragLocation.y - beginTouchLocation.y)/100)
-                    inputMovement = touchMotion
+                    inputMovement.x = 0
                 }
             }
-            // Speed up the player
-            inputPushButtonPressed = true
-        }
         #endif
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         #if os(iOS)
-        if touches.count > 0 {
-            // slow down the player
-            inputPushButtonPressed = false
-        }
+            for touch in touches {
+                let positionInScene = touch.location(in: self)
+                let touchedNode = self.atPoint(positionInScene)
+                if touchedNode.name == ButtonType.left.rawValue {
+                    inputMovement.x = 0
+                    leftButton.showDefault()
+                    rightButton.showDefault()
+                } else if touchedNode.name == ButtonType.right.rawValue {
+                    inputMovement.x = 0
+                    rightButton.showDefault()
+                    leftButton.showDefault()
+                } else if touchedNode.name == ButtonType.fast.rawValue {
+                    inputPushButtonPressed = false
+                    fastButton.showDefault()
+                } else {
+                    leftButton.showDefault()
+                    rightButton.showDefault()
+                }
+            }
         #endif
     }
 
@@ -170,7 +211,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
                 inputMovement.x = CGFloat(velocity) * +1
             }
             if event == "Pause" {
-                stateMachine.enterState(GameScenePausedState.self)
+                stateMachine.enter(GameScenePausedState.self)
             }
         case is GameSceneFinishState:
             if event == "buttonA" {
@@ -180,7 +221,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         case is GameScenePausedState:
             if event == "buttonA" {
                 // Resume the game
-                self.stateMachine.enterState(GameSceneActiveState.self)
+                self.stateMachine.enter(GameSceneActiveState.self)
             }
         default:
             break
@@ -204,34 +245,52 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
 
     // MARK: Game Loop
     
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         
         // Calculate delta time
         var deltaTime = currentTime - lastUpdateTimeInterval
         deltaTime = deltaTime > maximumUpdateDeltaTime ? maximumUpdateDeltaTime : deltaTime
         lastUpdateTimeInterval = currentTime
 
-        //if scene.paused { return }
+        //if scene.paused { return }  TODO: check if this can be removed
         
         // Player controls and camera
-        if !(playerEntity.reachedFinishLine){
-            if let playerMoveComponent = playerEntity.componentForClass(MoveComponent.self) {
-                playerMoveComponent.movement = inputMovement
-                playerMoveComponent.pushButton = inputPushButtonPressed
+        //if let playerNode = worldLayer.childNodeWithName("playerNode") as? EntityNode {
+        //    if let playerEntity = playerNode.entity as? PlayerEntity {
+        //        if !(playerEntity.reachedFinishLine) {
+        //            if let playerMoveComponent = playerEntity.componentForClass(MoveComponent.self) {
+        //                playerMoveComponent.movement = inputMovement
+        //                playerMoveComponent.pushButton = inputPushButtonPressed
+        //            }
+        //        }
+        //    }
+        //}
+        // Player camera
+        var highestY: CGFloat = 0.0
+        for entity in entities where (entity.component(ofType: MoveComponent.self) != nil) {
+            if entity.component(ofType: RenderComponent.self)!.node.position.y < highestY {
+                highestY = entity.component(ofType: RenderComponent.self)!.node.position.y
             }
+            entity.component(ofType: MoveComponent.self)!.movement = inputMovement
+            entity.component(ofType: MoveComponent.self)!.pushButton = inputPushButtonPressed
         }
-        if !(playerEntity.isCrashed || playerEntity.reachedFinishLine) {
-            let newCameraPosition = CGPoint(x: 0, y: playerEntity.renderComponent.node.position.y + playerSettings.cameraOffset.y)
-            centerCameraOnPoint(newCameraPosition)
-        }
+        let newCameraPosition = CGPoint(x: 0, y: highestY + playerSettings.cameraOffset.y)
+        centerCameraOnPoint(point: newCameraPosition)
+        
+        //if let playerNode = worldLayer.childNodeWithName("playerNode") as? EntityNode {
+        //    if let playerEntity = playerNode.entity as? PlayerEntity {
+        //        let newCameraPosition = CGPoint(x: 0, y: playerEntity.renderComponent.node.position.y + playerSettings.cameraOffset.y)
+        //        centerCameraOnPoint(newCameraPosition)
+        //    }
+        //}
         
         // Update all components
         for componentSystem in componentSystems {
-            componentSystem.updateWithDeltaTime(deltaTime)
+            componentSystem.update(deltaTime: deltaTime)
         }
         
         // Update the GameScene's state machine
-        stateMachine.updateWithDeltaTime(deltaTime)
+        stateMachine.update(deltaTime: deltaTime)
 
         // Reset the inputPushButton press
         //inputPushButtonPressed = false
@@ -239,16 +298,21 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     
     override func didFinishUpdate() {
         // Update score display
-        if let scoreLabel = guiLayer.childNodeWithName("scoreLabel") as? SKLabelNode {
-            scoreLabel.text = "\(playerEntity.score)"
+        if let scoreLabel = guiLayer.childNode(withName: "scoreLabel") as? SKLabelNode {
+            if let playerNode = worldLayer.childNode(withName: "playerNode") as? EntityNode {
+                if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+                    scoreLabel.text = "\(playerEntity.score)"
+            
+                }
+            }
         }
     }
     
     
     // MARK: Physics contact delegate
     
-    func didBeginContact(contact: SKPhysicsContact) {
-        if playerEntity.isCrashed || playerEntity.reachedFinishLine { return }
+    func didBegin(_ contact: SKPhysicsContact) {
+        //if playerEntity.isCrashed || playerEntity.reachedFinishLine { return }
         
         let bodyA = contact.bodyA.node
         let bodyB = contact.bodyB.node
@@ -257,26 +321,36 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         // Did Player reach the finish line?
         if bodyA?.name == "finishNode" {
             if bodyB?.name == "playerNode" {
-                playerEntity.reachedFinishLine = true
-                stateMachine.enterState(GameSceneFinishState.self)
+                if let playerNode = bodyB as? EntityNode {
+                    if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+                        
+                        playerEntity.reachedFinishLine = true
+                        stateMachine.enter(GameSceneFinishState.self)
+                    }
+                }
             }
         }
         // Did Player pass through a gate?
         if bodyA?.name == "gateNode" {
             if bodyB?.name == "playerNode" {
-                if let gateEntity = (bodyA as? EntityNode)?.entity as? GateEntity {
-                    gateEntity.stateComponent.stateMachine.enterState(GatePassedState.self)
+                if let gateEntity = (bodyA as? EntityNode)?.parentEntity as? GateEntity {
+                    gateEntity.stateComponent.stateMachine.enter(GatePassedState.self)
                 }
             }
         }
         // Did Player ran outside a gate?
         if bodyA?.name == "missedNode" {
             if bodyB?.name == "playerNode" {
-                if let missedNode = bodyA as? MissedNode {
-                    if let gateNode = missedNode.parent as? GateNode {
-                        if let gateEntity = gateNode.entity {
-                            gateEntity.stateComponent.stateMachine.enterState(GateRunOutsideState.self)
-                            playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                if let playerNode = bodyB as? EntityNode {
+                    if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+
+                        if let missedNode = bodyA as? MissedNode {
+                            if let gateNode = missedNode.parent as? GateNode {
+                                if let gateEntity = gateNode.parentEntity {
+                                    gateEntity.stateComponent.stateMachine.enter(GateRunOutsideState.self)
+                                    playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                                }
+                            }
                         }
                     }
                 }
@@ -285,26 +359,34 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         // Did Player run over a post?
         if bodyA?.name == "postNode" {
             if bodyB?.name == "playerNode" {
-                if let postNode = bodyA as? PostNode {
-                    let gateNode = postNode.parent as! GateNode
-                    if let gateEntity = gateNode.entity {
-                        gateEntity.stateComponent.stateMachine.enterState(GateRunOverPostState.self)
-                        postNode.displayCrookedPost()
+                if let playerNode = bodyB as? EntityNode {
+                    if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+                        if let postNode = bodyA as? PostNode {
+                            let gateNode = postNode.parent as! GateNode
+                            if let gateEntity = gateNode.parentEntity {
+                                gateEntity.stateComponent.stateMachine.enter(GateRunOverPostState.self)
+                                postNode.displayCrookedPost()
+                            }
+                            playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                        }
                     }
-                    playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
                 }
             }
         }
         // Did Player hit an obstacle?
         if bodyA?.name == "obstacleNode" {
             if bodyB?.name == "playerNode" {
-                playerEntity.isCrashed = true
-                playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                if let playerNode = bodyB as? EntityNode {
+                    if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+                        playerEntity.isCrashed = true
+                        playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                    }
+                }
             }
         }
     }
     
-    func didEndContact(contact: SKPhysicsContact) {
+    func didEnd(_ contact: SKPhysicsContact) {
         let bodyA = contact.bodyA.node
         let bodyB = contact.bodyB.node
         
@@ -319,23 +401,27 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         // Player did pass a gate
         if bodyA?.name == "gateNode" {
             if bodyB?.name == "playerNode" {
-                if let gateEntity = (bodyA as? EntityNode)?.entity as? GateEntity {
-                    // Check if the gate is passed
-                    if gateEntity.stateComponent.stateMachine.currentState is GatePassedState {
-                        // Determine score to be awarded for this gate
-                        let score = gateSettings.score * playerEntity.gateScoringMultiplier
-                        
-                        // Display the score in the gate
-                        //gateEntity.didPassGate(score)
-                        let gateNode = gateEntity.gateNode
-                        gateNode.displayGateScore(score)
-                        
-                        // Award player with this core
-                        playerEntity.score += score
-                        
-                        // Increase the scoring multiplier
-                        if (playerEntity.gateScoringMultiplier <= gateSettings.maxScoringMultiplier) {
-                            playerEntity.gateScoringMultiplier += 1
+                if let playerNode = bodyB as? EntityNode {
+                    if let playerEntity = playerNode.parentEntity as? PlayerEntity {
+                        if let gateEntity = (bodyA as? EntityNode)?.parentEntity as? GateEntity {
+                            // Check if the gate is passed
+                            if gateEntity.stateComponent.stateMachine.currentState is GatePassedState {
+                                // Determine score to be awarded for this gate
+                                let score = gateSettings.score * playerEntity.gateScoringMultiplier
+                                
+                                // Display the score in the gate
+                                //gateEntity.didPassGate(score)
+                                let gateNode = gateEntity.gateNode
+                                gateNode?.displayGateScore(score: score)
+                                
+                                // Award player with this score
+                                playerEntity.score += score
+                                
+                                // Increase the scoring multiplier
+                                if (playerEntity.gateScoringMultiplier <= gateSettings.maxScoringMultiplier) {
+                                    playerEntity.gateScoringMultiplier += 1
+                                }
+                            }
                         }
                     }
                 }
@@ -345,22 +431,25 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     
     // MARK: TileMap Delegate
     
-    func createNodeOf(type type:tileType, location:CGPoint) {
+    func createNodeOf(type:tileType, location:CGPoint) {
         switch type {
         case .tileTree:
-            addObstacle(ObstacleType.Tree, position: location)
+            addObstacle(obstacleType: ObstacleType.Tree, position: location)
             break
         case .tileRock:
-            addObstacle(ObstacleType.Rock, position: location)
+            addObstacle(obstacleType: ObstacleType.Rock, position: location)
             break
         case .tileGate:
-            addGate(location)
+            addGate(position: location)
             break
         case .tileStart:
-            addPlayer(location)
+            addPlayer(position: location)
             break
         case .tileFinish:
-            addFinish(location)
+            addFinish(position: location)
+            break
+        case .tileOpponent:
+            addPlayer(position: location)
             break
         default:
             break
@@ -368,14 +457,14 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     }
     
     func addPlayer(position: CGPoint) {
-        // playerEntity is already defined as a property of this scene
-        let playerNode = playerEntity.renderComponent.node
-        playerNode.position = position
-        playerNode.name = "playerNode"
-        playerNode.zPosition = 10
-        setPlayerConstraints()
+        let entity = PlayerEntity()
+        let node = entity.renderComponent.node
+        node.position = position
+        node.name = "playerNode"
+        node.zPosition = 10
+        setPlayerConstraints(entity: entity)
         setCameraConstraints()
-        addEntity(playerEntity)
+        addEntity(entity: entity)
     }
     
     func addObstacle(obstacleType: ObstacleType, position: CGPoint) {
@@ -384,7 +473,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         obstacleNode.position = position
         obstacleNode.name = "obstacleNode"
         obstacleNode.zPosition = 50
-        addEntity(obstacleEntity)
+        addEntity(entity: obstacleEntity)
     }
     
     func addGate(position: CGPoint) {
@@ -392,23 +481,23 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         let gateNode = gateEntity.renderComponent.node
         gateNode.position = position
         gateNode.name = "gateNode"
-        addEntity(gateEntity)
+        addEntity(entity: gateEntity)
     }
     
     func addFinish(position: CGPoint) {
         let atlasTiles = SKTextureAtlas(named: "world")
         let texture = atlasTiles.textureNamed("finish_192x64_00")
-        texture.filteringMode = SKTextureFilteringMode.Nearest
+        texture.filteringMode = SKTextureFilteringMode.nearest
         let node = SKSpriteNode(texture: texture)
-        node.size = CGSize(width: 192, height: 64)
+        node.size = CGSize(width: 192, height: 96)
         node.position = position
         node.zPosition = 50
         node.name = "finishNode"
-        node.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 256, height: 32), center: CGPoint(x: 0, y: 64))
-        node.physicsBody?.categoryBitMask = ColliderType.Finish.rawValue
-        node.physicsBody?.contactTestBitMask = ColliderType.Player.rawValue
-        node.physicsBody?.collisionBitMask = ColliderType.None.rawValue
-        node.physicsBody?.dynamic = true
+        node.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 256, height: 32), center: CGPoint(x: 0, y: 64))
+        node.physicsBody?.categoryBitMask = ColliderType.finish.rawValue
+        node.physicsBody?.contactTestBitMask = ColliderType.player.rawValue
+        node.physicsBody?.collisionBitMask = ColliderType.none.rawValue
+        node.physicsBody?.isDynamic = true
         worldLayer.addChild(node)
     }
     
@@ -416,14 +505,14 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         entities.insert(entity)
         
         for componentSystem in self.componentSystems {
-            componentSystem.addComponentWithEntity(entity)
+            componentSystem.addComponent(foundIn: entity)
         }
         
-        if let renderNode = entity.componentForClass(RenderComponent.self)?.node {
+        if let renderNode = entity.component(ofType: RenderComponent.self)?.node {
             worldLayer.addChild(renderNode)
         }
         
-        if let stateComponent = entity.componentForClass(StateComponent.self) {
+        if let stateComponent = entity.component(ofType: StateComponent.self) {
             stateComponent.enterInitialState()
         }
         
@@ -433,15 +522,15 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
     // MARK: Convenience
     
     func setupLevel() {
-        worldGenerator.generateLevel(0)
+        worldGenerator.generateLevel(defaultValue: 0)
         worldGenerator.createLevel()
         worldGenerator.presentLayerViaDelegate()
     }
     
     func restartLevel() {
         let newScene = GameScene(fileNamed:"GameScene")
-        newScene!.scaleMode = .AspectFill
-        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+        newScene!.scaleMode = .aspectFill
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         self.view?.presentScene(newScene!, transition: reveal)
     }
     
@@ -450,10 +539,18 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         label.position = position
         label.fontColor = color
         label.horizontalAlignmentMode = alignment
-        label.text = text.uppercaseString
+        label.text = text.uppercased()
         label.name = name
         label.zPosition = 1000
         return label
+    }
+    
+    func getButtonTexture(textureName: String) -> SKTexture {
+        // Configure new texture
+        let atlas = SKTextureAtlas(named: "controls")
+        let defaultTexture = atlas.textureNamed(textureName)
+        defaultTexture.filteringMode = SKTextureFilteringMode.nearest
+        return defaultTexture
     }
     
     func centerCameraOnPoint(point: CGPoint) {
@@ -462,7 +559,7 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         }
     }
     
-    private func setCameraConstraints() {
+    fileprivate func setCameraConstraints() {
         guard let camera = camera else { return }
         
         // The camera will snap into a specific point horizontally, so that just enough of the world width is visible, plus a bit extra space on the right side for labels (score, time, etc.)
@@ -471,19 +568,19 @@ class GameScene: SKScene, tileMapDelegate, SKPhysicsContactDelegate, GameControl
         
         // The camera will stop moving below the bottom of the world.
         let tilemapSize = worldGenerator.tilemapSize()
-        let fixedVerticalRange = SKRange(lowerLimit: (tilemapSize.height * -1), upperLimit: 0)
+        let fixedVerticalRange = SKRange(lowerLimit: (tilemapSize.height * -1) + 90, upperLimit: 0) // plus 90
         let playerVerticalConstraint = SKConstraint.positionY(fixedVerticalRange)
         
         camera.constraints = [playerHorizontalConstraint, playerVerticalConstraint]
     }
     
-    private func setPlayerConstraints() {
+    fileprivate func setPlayerConstraints(entity: PlayerEntity) {
         // Calculate the rightmost position a player can go
         let tilemapSize = worldGenerator.tilemapSize()
         let tileSize = worldGenerator.tileSize
         
         // We're taking one tileSize width off the entire width of the world, as a buffer
         let upperLimit: CGFloat = tilemapSize.width - tileSize.width
-        playerEntity.renderComponent.node.constraints = [SKConstraint.positionX(SKRange(lowerLimit: 0, upperLimit: upperLimit))]
+        entity.renderComponent.node.constraints = [SKConstraint.positionX(SKRange(lowerLimit: 0, upperLimit: upperLimit))]
     }
 }

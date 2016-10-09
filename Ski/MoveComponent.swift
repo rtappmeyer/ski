@@ -12,20 +12,20 @@ import GameplayKit
 class MoveComponent: GKComponent {
     // MARK: Properties
     
-    var movement = CGPointZero
+    var movement = CGPoint.zero
     var pushButton = false
     var downhillMovementSpeed = (playerSettings.downhillSpeedMin / 100)
     var lastYposition: CGFloat = 0
     
     var renderComponent: RenderComponent {
-        guard let renderComponent = entity?.componentForClass(RenderComponent.self) else {
+        guard let renderComponent = entity?.component(ofType: RenderComponent.self) else {
             fatalError("A MoveComponent's entity must have a RenderComponent")
         }
         return renderComponent
     }
     
     var animationComponent: AnimationComponent {
-        guard let animationComponent = entity?.componentForClass(AnimationComponent.self) else {
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else {
             fatalError("A MovementComponent's entity must have an AnimationComponent")
         }
         return animationComponent
@@ -34,8 +34,8 @@ class MoveComponent: GKComponent {
 
     // MARK: GKComponent Life Cycle
 
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        super.updateWithDeltaTime(seconds)
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
         
         let playerEntity = (entity as! PlayerEntity)
 
@@ -61,14 +61,14 @@ class MoveComponent: GKComponent {
         
         // Update player animation
         if movement.x < -0.1 {
-            animationComponent.requestedAnimationState = .Left
+            animationComponent.requestedAnimationState = .left
         } else if movement.x > 0.1 {
-            animationComponent.requestedAnimationState = .Right
+            animationComponent.requestedAnimationState = .right
         } else {
-            animationComponent.requestedAnimationState = .Idle
+            animationComponent.requestedAnimationState = .idle
         }
         
-        movement = CGPointZero
+        movement = CGPoint.zero
         
     }
     

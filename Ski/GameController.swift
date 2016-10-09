@@ -39,21 +39,21 @@ class GameController {
     var lastShootPoint = CGPoint.zero
     
     init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GameController.controllerStateChanged(_:)), name: GCControllerDidConnectNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GameController.controllerStateChanged(_:)), name: GCControllerDidDisconnectNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameController.controllerStateChanged(notification:)), name: Notification.Name.GCControllerDidConnect, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GameController.controllerStateChanged(notification:)), name: Notification.Name.GCControllerDidDisconnect, object: nil)
         
-        GCController.startWirelessControllerDiscoveryWithCompletionHandler() {
-            self.controllerStateChanged(NSNotification(name: "", object: nil))
+        GCController.startWirelessControllerDiscovery() {
+            self.controllerStateChanged(notification: Notification(name: Notification.Name(rawValue: ""), object: nil))
         }
-        self.controllerStateChanged(NSNotification(name: "", object: nil))
+        self.controllerStateChanged(notification: Notification(name: Notification.Name(rawValue: ""), object: nil))
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: GCControllerDidConnectNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: GCControllerDidDisconnectNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.GCControllerDidConnect, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name.GCControllerDidDisconnect, object: nil)
     }
     
-    @objc func controllerStateChanged(notification: NSNotification) {
+    @objc func controllerStateChanged(notification: Notification) {
         
         if GCController.controllers().count > 0 {
             gameControllerConnected = true
@@ -71,10 +71,13 @@ class GameController {
                 }
                 if (gameController.extendedGamepad != nil) {
                     gameControllerType = .extended
+                    print("extended")
                 } else if (gameController.microGamepad != nil) {
                     gameControllerType = .micro
+                    print("microGamepad")
                 } else {
                     gameControllerType = .standard
+                    print("standard")
                 }
             #endif
             #if os(tvOS)
@@ -82,27 +85,28 @@ class GameController {
                     let microPad:GCMicroGamepad = gameController.microGamepad {
                     
                     microPad.allowsRotation = true
+                    print("microgamepad initialized")
                     microPad.reportsAbsoluteDpadValues = true // TODO: look into this one
                     microPad.dpad.valueChangedHandler = { dpad, xValue, yValue in
                         if self.delegate != nil {
                             // Create a deadzone, and numbing to make it playable with the Micro Controller
                             if xValue < controllerSettings.microControllerDeadZone * -1 {
-                                self.delegate!.stickEvent("leftstick", point: CGPointMake(CGFloat(xValue * controllerSettings.microControllerNumbingRatio), 0))
+                                self.delegate!.stickEvent(event: "leftstick", point: CGPoint(x: CGFloat(xValue * controllerSettings.microControllerNumbingRatio), y: 0))
                             } else if xValue > controllerSettings.microControllerDeadZone {
-                                self.delegate!.stickEvent("leftstick", point: CGPointMake(CGFloat(xValue * controllerSettings.microControllerNumbingRatio), 0))
+                                self.delegate!.stickEvent(event: "leftstick", point: CGPoint(x: CGFloat(xValue * controllerSettings.microControllerNumbingRatio), y: 0))
                             } else {
-                                self.delegate!.stickEvent("leftstick", point:CGPointMake(0,0))
+                                self.delegate!.stickEvent(event: "leftstick", point:CGPoint.zero)
                             }
                         }
                     }
                     microPad.buttonA.valueChangedHandler = { button, value, pressed in
                         if self.delegate != nil {
-                            self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
+                            self.delegate!.buttonEvent(event: "buttonA", velocity: value, pushedOn: pressed)
                         }
                     }
                     microPad.buttonX.valueChangedHandler = { button, value, pressed in
                         if self.delegate != nil {
-                            self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
+                            self.delegate!.buttonEvent(event: "buttonX", velocity: value, pushedOn: pressed)
                         }
                     }
                 }
@@ -123,7 +127,7 @@ class GameController {
             gameController.controllerPausedHandler = { controller in
                 self.gamePaused = !self.gamePaused
                 if self.delegate != nil {
-                    self.delegate!.buttonEvent("Pause", velocity: 1.0, pushedOn: self.gamePaused)
+                    self.delegate!.buttonEvent(event: "Pause", velocity: 1.0, pushedOn: self.gamePaused)
                 }
             }
             
@@ -132,58 +136,59 @@ class GameController {
                 
                 pad.buttonA.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "buttonA", velocity: value, pushedOn: pressed)
                     }
                 }
                 pad.buttonX.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "buttonX", velocity: value, pushedOn: pressed)
                     }
                 }
                 pad.dpad.up.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("dpad_up", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "dpad_up", velocity: value, pushedOn: pressed)
                     }
                 }
                 pad.dpad.down.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("dpad_down", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "dpad_down", velocity: value, pushedOn: pressed)
                     }
                 }
                 pad.dpad.left.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("dpad_left", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "dpad_left", velocity: value, pushedOn: pressed)
                     }
                 }
                 pad.dpad.right.valueChangedHandler = { button, value, pressed in
                     if self.delegate != nil {
-                        self.delegate!.buttonEvent("dpad_right", velocity: value, pushedOn: pressed)
+                        self.delegate!.buttonEvent(event: "dpad_right", velocity: value, pushedOn: pressed)
                     }
                 }
             }
         }
         if gameControllerType! == .extended,
             let extendedPad:GCExtendedGamepad = gameController.extendedGamepad {
-
+            print("added extended")
             extendedPad.buttonA.valueChangedHandler = { button, value, pressed in
                 if self.delegate != nil {
-                    self.delegate!.buttonEvent("buttonA", velocity: value, pushedOn: pressed)
+                    self.delegate!.buttonEvent(event: "buttonA", velocity: value, pushedOn: pressed)
                 }
             }
             extendedPad.buttonX.valueChangedHandler = { button, value, pressed in
                 if self.delegate != nil {
-                    self.delegate!.buttonEvent("buttonX", velocity: value, pushedOn: pressed)
+                    print("buttonX")
+                    self.delegate!.buttonEvent(event: "buttonX", velocity: value, pushedOn: pressed)
                 }
             }
             //2
             extendedPad.leftThumbstick.valueChangedHandler = { dpad, xValue, yValue in
                 if self.delegate != nil {
-                    self.delegate!.stickEvent("leftstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
+                    self.delegate!.stickEvent(event: "leftstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
                 }
             }
             extendedPad.rightThumbstick.valueChangedHandler = { dpad, xValue, yValue in
                 if self.delegate != nil {
-                    self.delegate!.stickEvent("rightstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
+                    self.delegate!.stickEvent(event: "rightstick", point:CGPoint(x: CGFloat(xValue),y: CGFloat(yValue)))
                 }
             }
         }

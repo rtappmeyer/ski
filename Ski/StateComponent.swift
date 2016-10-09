@@ -18,20 +18,25 @@ class StateComponent: GKComponent {
     
     init(states: [GKState]) {
         stateMachine = GKStateMachine(states: states)
-        initialStateClass = states.first!.dynamicType
+        initialStateClass = type(of: states.first!) as AnyClass
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: GKComponent Life Cycle
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        super.updateWithDeltaTime(seconds)
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
         
-        stateMachine.updateWithDeltaTime(seconds)
+        stateMachine.update(deltaTime: seconds)
     }
     
     // MARK: Actions
     
     func enterInitialState() {
-        stateMachine.enterState(initialStateClass)
+        stateMachine.enter(initialStateClass)
     }
 }

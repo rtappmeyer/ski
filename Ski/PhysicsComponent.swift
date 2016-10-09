@@ -16,8 +16,12 @@ class PhysicsComponent: GKComponent {
         self.physicsBody = physicsBody
         super.init()
         
-        self.physicsBody.dynamic = true
-        self.physicsBody.collisionBitMask = ColliderType.None.rawValue
+        self.physicsBody.isDynamic = true
+        self.physicsBody.collisionBitMask = ColliderType.none.rawValue
 
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

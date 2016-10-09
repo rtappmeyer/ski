@@ -12,5 +12,5 @@ import GameplayKit
 class EntityNode: SKNode {
     // MARK: Properties
     
-    weak var entity: GKEntity!
+    weak var parentEntity: GKEntity!
 }

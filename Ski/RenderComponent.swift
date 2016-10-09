@@ -13,9 +13,14 @@ class RenderComponent: GKComponent {
     // MARK: Properties
     
     // The RenderComponents provides a node allowing an entity to be rendered in a scene.
-    let node = EntityNode()
+    var node = EntityNode()
     
     init(entity: GKEntity) {
-        node.entity = entity
+        node.parentEntity = entity
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

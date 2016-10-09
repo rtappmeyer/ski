@@ -28,32 +28,32 @@ class GameViewController: UIViewController {
             
             // Configure the view.
             let skView = self.view as! SKView
-            //skView.showsFPS = true
-            //skView.showsNodeCount = true
-            //skView.showsPhysics = true
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            skView.showsPhysics = true
             
             // Allow multiple touches
-            skView.multipleTouchEnabled = true
+            skView.isMultipleTouchEnabled = true
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             skView.presentScene(scene)
         }
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return .LandscapeRight
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .landscapeRight
         } else {
-            return .LandscapeRight
+            return .landscapeRight
         }
     }
 
@@ -62,7 +62,7 @@ class GameViewController: UIViewController {
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

@@ -13,7 +13,7 @@ class GateEntity: GKEntity {
     // MARK: Properties
     
     var renderComponent: RenderComponent {
-        guard let renderComponent = componentForClass(RenderComponent.self) else { fatalError("A PlayerEntity must have an RenderComponent.") }
+        guard let renderComponent = component(ofType: RenderComponent.self) else { fatalError("A PlayerEntity must have an RenderComponent.") }
         return renderComponent
     }
     
@@ -28,14 +28,14 @@ class GateEntity: GKEntity {
         super.init()
         
         gateNode = GateNode()
-        gateNode.entity = self
+        gateNode.parentEntity = self
         
         let renderComponent = RenderComponent(entity: self)
         addComponent(renderComponent)
         
-        let physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(28, 16), center: CGPointMake(-6,-8))
-        physicsBody.categoryBitMask = ColliderType.Gate.rawValue
-        physicsBody.contactTestBitMask = ColliderType.Player.rawValue
+        let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 28, height: 16), center: CGPoint(x: -6,y: -8))
+        physicsBody.categoryBitMask = ColliderType.gate.rawValue
+        physicsBody.contactTestBitMask = ColliderType.player.rawValue
         
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody)
         addComponent(physicsComponent)
@@ -52,6 +52,10 @@ class GateEntity: GKEntity {
 
         renderComponent.node.addChild(gateNode)
         
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

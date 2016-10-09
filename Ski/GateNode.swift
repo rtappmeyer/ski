@@ -16,7 +16,7 @@ import SpriteKit
 class GateNode: SKNode {
     // MARK: Properties
     
-    weak var entity: GateEntity!
+    weak var parentEntity: GateEntity!
     
     var leftPost: PostNode!
     var rightPost: PostNode!
@@ -31,11 +31,11 @@ class GateNode: SKNode {
         
         super.init()
         
-        leftPost = PostNode(offset: CGPointMake(-16,0))
-        rightPost = PostNode(offset: CGPointMake(16,0))
+        leftPost = PostNode(offset: CGPoint(x: -16,y: 0))
+        rightPost = PostNode(offset: CGPoint(x: 16,y: 0))
         
-        leftMissedShape = MissedNode(offset: CGPointMake(-276, -8))
-        rightMissedShape = MissedNode(offset: CGPointMake(8, -8))
+        leftMissedShape = MissedNode(offset: CGPoint(x: -276, y: -8))
+        rightMissedShape = MissedNode(offset: CGPoint(x: 8, y: -8))
         
         self.addChild(leftPost)
         self.addChild(rightPost)
@@ -50,9 +50,9 @@ class GateNode: SKNode {
     
     func displayGateScore(score: Int) {
         let scoreLabel = SKLabelNode(fontNamed: "Commodore-64-Pixelized")
-        scoreLabel.position = CGPointMake(-4, -6)
-        scoreLabel.fontColor = UIColor.blackColor()
-        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Center
+        scoreLabel.position = CGPoint(x: -4, y: -6)
+        scoreLabel.fontColor = UIColor.black
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.center
         scoreLabel.text = "\(score)"
         scoreLabel.zPosition = 99
         scoreLabel.setScale(kScaleAmount)

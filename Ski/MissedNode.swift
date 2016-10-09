@@ -16,13 +16,13 @@ class MissedNode: SKShapeNode {
         super.init()
 
         name = "missedNode"
-        position = CGPointZero
+        position = CGPoint.zero
         
-        let missedPhysicsBody = SKPhysicsBody(edgeFromPoint: offset, toPoint: CGPoint(x: (offset.x + 256), y: offset.y))
-        missedPhysicsBody.categoryBitMask = ColliderType.Missed.rawValue
-        missedPhysicsBody.contactTestBitMask = ColliderType.Player.rawValue
-        missedPhysicsBody.collisionBitMask = ColliderType.None.rawValue
-        missedPhysicsBody.dynamic = true
+        let missedPhysicsBody = SKPhysicsBody(edgeFrom: offset, to: CGPoint(x: (offset.x + 256), y: offset.y))
+        missedPhysicsBody.categoryBitMask = ColliderType.missed.rawValue
+        missedPhysicsBody.contactTestBitMask = ColliderType.player.rawValue
+        missedPhysicsBody.collisionBitMask = ColliderType.none.rawValue
+        missedPhysicsBody.isDynamic = true
 
         physicsBody = missedPhysicsBody
     }

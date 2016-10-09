@@ -27,32 +27,32 @@ class GameSceneState: GKState {
 class GameSceneInitialState: GameSceneState {
     // MARK: Properties
     
-    var elapsedTime: NSTimeInterval = 0.0
+    var elapsedTime: TimeInterval = 0.0
     
     
     // MARK: GKState Life Cycle
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         scene.setupLevel()
         elapsedTime = 0.0
     
         // Display overlay text
-        scene.overlayLayer.addChild(scene.createLabel("getReadyLabel", text: "Player get ready!", position: CGPointMake(-80, 100), color: UIColor.c64blueColor(), alignment: .Center))
-        scene.overlayLayer.addChild(scene.createLabel("levelLabel", text: "Level 1", position: CGPointMake(-80, 50), color: UIColor.c64brownColor(), alignment: .Center))
-        scene.overlayLayer.addChild(scene.createLabel("limitLabel", text: "Limit 1:00", position: CGPointMake(-80, 0), color: UIColor.c64blueColor(), alignment: .Center))
+        scene.overlayLayer.addChild(scene.createLabel(name: "getReadyLabel", text: "Player get ready!", position: CGPoint(x: -80, y: 60), color: UIColor.c64blueColor(), alignment: .center))
+        scene.overlayLayer.addChild(scene.createLabel(name: "levelLabel", text: "Level 1", position: CGPoint(x: -80, y: 10), color: UIColor.c64brownColor(), alignment: .center))
+        scene.overlayLayer.addChild(scene.createLabel(name: "limitLabel", text: "Limit 1:00", position: CGPoint(x: -80, y: -40), color: UIColor.c64blueColor(), alignment: .center))
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        super.updateWithDeltaTime(seconds)
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
         
         elapsedTime += seconds
         
         if elapsedTime > sceneSettings.initialDuration {
-            scene.stateMachine.enterState(GameSceneActiveState.self)
+            scene.stateMachine.enter(GameSceneActiveState.self)
         }
     }
     
-    override func willExitWithNextState(nextState: GKState) {
+    override func willExit(to nextState: GKState) {
         // Remove overlay text
         
         for node in scene.overlayLayer.children {
@@ -65,22 +65,22 @@ class GameSceneInitialState: GameSceneState {
 class GameSceneActiveState: GameSceneState {
     // MARK: Properties
     
-    var elapsedTime: NSTimeInterval = 0.0
+    var elapsedTime: TimeInterval = 0.0
 
-    let elapsedTimeFormatter: NSDateComponentsFormatter = {
-        let formatter = NSDateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .Pad
-        formatter.allowedUnits = [.Minute, .Second]
+    let elapsedTimeFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
         
         return formatter
     }()
 
     // The formatted string representing the elapsed time of the game.
     var elapsedTimeString: String {
-        let components = NSDateComponents()
+        var components = DateComponents()
         components.second = Int(max(0.0, elapsedTime))
         
-        return elapsedTimeFormatter.stringFromDateComponents(components)!
+        return elapsedTimeFormatter.string(from: components)!
     }
     
     override init(scene: GameScene) {
@@ -89,14 +89,14 @@ class GameSceneActiveState: GameSceneState {
         elapsedTime = 0.0
     }
     
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        scene.paused = false
+    override func didEnter(from previousState: GKState?) {
+        scene.isPaused = false
         scene.timeLabel.text = elapsedTimeString
 
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        super.updateWithDeltaTime(seconds)
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
         
         elapsedTime += seconds
         
@@ -104,20 +104,20 @@ class GameSceneActiveState: GameSceneState {
         scene.timeLabel.text = elapsedTimeString
     }
     
-    override func willExitWithNextState(nextState: GKState) {
-        scene.playerEntity.elapsedTime = elapsedTime
+    override func willExit(to nextState: GKState) {
+        //scene.playerEntity.elapsedTime = elapsedTime TODO: determine playerentity
     }
 }
 
 
 class GameScenePausedState: GameSceneState {
-    override func didEnterWithPreviousState(previousState: GKState?) {
-        scene.paused = true
+    override func didEnter(from previousState: GKState?) {
+        scene.isPaused = true
         
-        scene.overlayLayer.addChild(scene.createLabel("pausedLabel", text: "-- Paused --", position: CGPointMake(-60, 100), color: UIColor.c64blueColor(), alignment: .Center))
+        scene.overlayLayer.addChild(scene.createLabel(name: "pausedLabel", text: "-- Paused --", position: CGPoint(x: -60, y: 100), color: UIColor.c64blueColor(), alignment: .center))
     }
     
-    override func willExitWithNextState(nextState: GKState) {
+    override func willExit(to nextState: GKState) {
         // Remove overlay text
         
         for node in scene.overlayLayer.children {
@@ -131,31 +131,36 @@ class GameScenePausedState: GameSceneState {
 class GameSceneFinishState: GameSceneState {
     // MARK: Properties
     
-    var elapsedTime: NSTimeInterval = 0.0
+    var elapsedTime: TimeInterval = 0.0
     var bonusText: String!
     
     // MARK: GKState Life Cycle
 
-    override func didEnterWithPreviousState(previousState: GKState?) {
+    override func didEnter(from previousState: GKState?) {
         
         elapsedTime = 0.0
 
-        let bonusSeconds = Int(sceneSettings.timeLimit - scene.playerEntity.elapsedTime)
+        //let bonusSeconds = Int(sceneSettings.timeLimit - scene.playerEntity.elapsedTime) TODO: determine playerentity
+        let bonusSeconds = 0
         print("bonusseconds=\(bonusSeconds)")
         if bonusSeconds > 0 {
-            scene.playerEntity.score += bonusSeconds * sceneSettings.timeBonusScore
+            //scene.playerEntity.score += bonusSeconds * sceneSettings.timeBonusScore
             bonusText = "Bonus Points \(sceneSettings.timeBonusScore) X\(bonusSeconds)"
         } else {
             bonusText = "No Bonus Points"
         }
         
         // Display overlay text
-        scene.overlayLayer.addChild(scene.createLabel("bonusLabel", text: bonusText, position: CGPointMake(-80, 100), color: UIColor.c64blueColor(), alignment: .Center))
+        //scene.overlayLayer.addChild(scene.createLabel(name: "bonusLabel", text: bonusText, position: CGPoint(x: -80, y: 100), color: UIColor.c64blueColor(), alignment: .center))
         
+        // Remove Controls
+        for node in scene.guiLayer.children {
+            node.removeFromParent()
+        }
     }
     
-    override func updateWithDeltaTime(seconds: NSTimeInterval) {
-        super.updateWithDeltaTime(seconds)
+    override func update(deltaTime seconds: TimeInterval) {
+        super.update(deltaTime: seconds)
         
         elapsedTime += seconds
         
@@ -164,7 +169,7 @@ class GameSceneFinishState: GameSceneState {
         }
     }
     
-    override func willExitWithNextState(nextState: GKState) {
+    override func willExit(to nextState: GKState) {
         // Remove overlay text
         
         for node in scene.overlayLayer.children {
