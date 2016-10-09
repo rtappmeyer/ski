@@ -10,9 +10,9 @@ import Foundation
 import SpriteKit
 
 struct playerSettings {
-    static let movementSpeed: CGFloat = 100.0 // 100
+    static let movementSpeed: CGFloat = 60.0 // 100
     static let downhillSpeedMin: CGFloat = 40.0
-    static let downhillSpeedMax: CGFloat = 180.0 // 100
+    static let downhillSpeedMax: CGFloat = 160.0 // 100
     
     static let downhillScore = 10
     
