@@ -69,3 +69,5 @@ enum ButtonType: String {
     case right = "right_button.png"
     case fast = "fast_button.png"
 }
+
+//test
