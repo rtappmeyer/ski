@@ -29,7 +29,6 @@
 		FB215A201D0B67C600F9A97A /* debug_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB06D8931D07AFDB00AAFD63 /* debug_level1.txt */; };
 		FB215A211D0B67C900F9A97A /* ski_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */; };
 		FB215A221D0B67CC00F9A97A /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC71CDE5CBD0090E9F6 /* world.atlas */; };
-		FB215A231D0B67CF00F9A97A /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC51CDE5CA00090E9F6 /* player.atlas */; };
 		FB215A261D0B67DA00F9A97A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43C57D1CE8310500BB0404 /* UIColor+Extensions.swift */; };
 		FB215A271D0B67DD00F9A97A /* GameSceneStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD31CDE60750090E9F6 /* GameSceneStates.swift */; };
 		FB215A281D0B67E000F9A97A /* PlayerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4DB7BD1CF3DE94002A2E81 /* PlayerStates.swift */; };
@@ -59,8 +58,8 @@
 		FB5748B71DA9B559008C5F3D /* controls.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB5748B61DA9B559008C5F3D /* controls.atlas */; };
 		FB5748B91DAA14A1008C5F3D /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */; };
 		FB5748BA1DAA1723008C5F3D /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */; };
-		FB763C511D4FC94200508A1E /* opponent.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB763C501D4FC94200508A1E /* opponent.atlas */; };
 		FB763C531D4FCAC700508A1E /* OpponentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB763C521D4FCAC700508A1E /* OpponentEntity.swift */; };
+		FB816F891DACBC2700ED06E0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB816F881DACBC2700ED06E0 /* player.atlas */; };
 		FBAED8AC1CB9C8A800438E3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */; };
 		FBAED8AE1CB9C8A800438E3F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = FBAED8AD1CB9C8A800438E3F /* GameScene.sks */; };
 		FBAED8B01CB9C8A800438E3F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AF1CB9C8A800438E3F /* GameScene.swift */; };
@@ -76,7 +75,6 @@
 		FBCAC5141DA4C9170067DA8E /* Skiier_Start.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50C1DA4BF550067DA8E /* Skiier_Start.m4a */; };
 		FBCAC5151DA4C91A0067DA8E /* Skiier_Main_Loop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50D1DA4BF550067DA8E /* Skiier_Main_Loop.m4a */; };
 		FBCAC5161DA4C91D0067DA8E /* Skiier_Finish.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50E1DA4BF550067DA8E /* Skiier_Finish.m4a */; };
-		FBD75DC61CDE5CA00090E9F6 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC51CDE5CA00090E9F6 /* player.atlas */; };
 		FBD75DC81CDE5CBD0090E9F6 /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC71CDE5CBD0090E9F6 /* world.atlas */; };
 		FBD75DCA1CDE5CCF0090E9F6 /* ski_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */; };
 		FBD75DCC1CDE5D050090E9F6 /* TileMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DCB1CDE5D050090E9F6 /* TileMap.swift */; };
@@ -112,8 +110,8 @@
 		FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commodore Pixelized v1.2.ttf"; sourceTree = "<group>"; };
 		FB5748B61DA9B559008C5F3D /* controls.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = controls.atlas; sourceTree = "<group>"; };
 		FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
-		FB763C501D4FC94200508A1E /* opponent.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = opponent.atlas; sourceTree = "<group>"; };
 		FB763C521D4FCAC700508A1E /* OpponentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentEntity.swift; sourceTree = "<group>"; };
+		FB816F881DACBC2700ED06E0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		FBAED8A81CB9C8A800438E3F /* Ski.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ski.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Ski/AppDelegate.swift; sourceTree = "<group>"; };
 		FBAED8AD1CB9C8A800438E3F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -127,7 +125,6 @@
 		FBCAC50C1DA4BF550067DA8E /* Skiier_Start.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skiier_Start.m4a; sourceTree = "<group>"; };
 		FBCAC50D1DA4BF550067DA8E /* Skiier_Main_Loop.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skiier_Main_Loop.m4a; sourceTree = "<group>"; };
 		FBCAC50E1DA4BF550067DA8E /* Skiier_Finish.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Skiier_Finish.m4a; sourceTree = "<group>"; };
-		FBD75DC51CDE5CA00090E9F6 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
 		FBD75DC71CDE5CBD0090E9F6 /* world.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = world.atlas; sourceTree = "<group>"; };
 		FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ski_level1.txt; sourceTree = "<group>"; };
 		FBD75DCB1CDE5D050090E9F6 /* TileMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileMap.swift; sourceTree = "<group>"; };
@@ -241,6 +238,7 @@
 		FBD75DC41CDE5C750090E9F6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB816F881DACBC2700ED06E0 /* player.atlas */,
 				FB5748B61DA9B559008C5F3D /* controls.atlas */,
 				FBCAC50B1DA4BF550067DA8E /* Skiier_Crash.m4a */,
 				FBCAC50C1DA4BF550067DA8E /* Skiier_Start.m4a */,
@@ -249,9 +247,7 @@
 				FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */,
 				FB06D8931D07AFDB00AAFD63 /* debug_level1.txt */,
 				FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */,
-				FB763C501D4FC94200508A1E /* opponent.atlas */,
 				FBD75DC71CDE5CBD0090E9F6 /* world.atlas */,
-				FBD75DC51CDE5CA00090E9F6 /* player.atlas */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -403,7 +399,6 @@
 				FB215A161D0B663100F9A97A /* Assets.xcassets in Resources */,
 				FBCAC5141DA4C9170067DA8E /* Skiier_Start.m4a in Resources */,
 				FB215A0D1D0B651F00F9A97A /* Main.storyboard in Resources */,
-				FB215A231D0B67CF00F9A97A /* player.atlas in Resources */,
 				FBCAC5131DA4C9140067DA8E /* Skiier_Crash.m4a in Resources */,
 				FB215A201D0B67C600F9A97A /* debug_level1.txt in Resources */,
 				FB215A1F1D0B67C400F9A97A /* Commodore Pixelized v1.2.ttf in Resources */,
@@ -422,11 +417,10 @@
 				FBCAC5111DA4BF550067DA8E /* Skiier_Main_Loop.m4a in Resources */,
 				FBCAC50F1DA4BF550067DA8E /* Skiier_Crash.m4a in Resources */,
 				FB4EECE51CDF050D0024C042 /* Commodore Pixelized v1.2.ttf in Resources */,
-				FB763C511D4FC94200508A1E /* opponent.atlas in Resources */,
 				FB06D8941D07AFDB00AAFD63 /* debug_level1.txt in Resources */,
 				FBAED8BA1CB9C8A800438E3F /* LaunchScreen.storyboard in Resources */,
-				FBD75DC61CDE5CA00090E9F6 /* player.atlas in Resources */,
 				FBAED8B71CB9C8A800438E3F /* Assets.xcassets in Resources */,
+				FB816F891DACBC2700ED06E0 /* player.atlas in Resources */,
 				FBD75DCA1CDE5CCF0090E9F6 /* ski_level1.txt in Resources */,
 				FBAED8B51CB9C8A800438E3F /* Main.storyboard in Resources */,
 			);

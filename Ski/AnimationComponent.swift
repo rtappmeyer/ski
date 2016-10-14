@@ -84,6 +84,7 @@ class AnimationComponent: GKComponent {
     class func animationFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState,  repeatTexturesForever: Bool = true) -> Animation {
         
         // Sort by name beginning with identifier_* and then by order (_00, _01, _02, ...)
+        //print("textures in atlas \(atlas.textureNames)")
         let textures = atlas.textureNames.filter {
             $0.hasPrefix("\(identifier)_")
             }.sorted { $0 < $1 }.map {
