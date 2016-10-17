@@ -9,6 +9,8 @@
 import UIKit
 
 extension UIColor {
+    // UIColor extension to include C64 type colors
+    
     fileprivate struct C64Colors {
         static let blueColor = UIColor(red: 72/255.0, green: 58/255.0, blue: 170/255.0, alpha: 1)
         static let brownColor = UIColor(red: 147/255.0, green: 73/255.0, blue: 64/255.0, alpha: 1)

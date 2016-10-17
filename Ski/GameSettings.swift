@@ -9,10 +9,17 @@
 import Foundation
 import SpriteKit
 
+struct levelSettings {
+    static let levels: [(level: Int, timeLimit: TimeInterval)] = [
+        (level: 1, timeLimit: 70.0),
+        (level: 2, timeLimit: 130.0)
+    ]
+}
+
 struct playerSettings {
     static let movementSpeed: CGFloat = 60.0 // 100
     static let downhillSpeedMin: CGFloat = 40.0
-    static let downhillSpeedMax: CGFloat = 160.0 // 100
+    static let downhillSpeedMax: CGFloat = 160.0 // 160
     
     static let downhillScore = 10
     
@@ -20,16 +27,14 @@ struct playerSettings {
     static let crashSlideDuration: TimeInterval = 1.0
     
     static let appearDuration: TimeInterval = 3.0
-    static let crashStateDuration: TimeInterval = 4.0
+    static let crashStateDuration: TimeInterval = 2.0
     static let reachedFinishLineStateDuration: TimeInterval = 4.0 // 0.7
     
     static let cameraOffset: CGPoint = CGPoint(x: 0, y: -40) // -60
 }
 
 struct sceneSettings {
-    static let timeLimit: TimeInterval = 60.0 // 1:00
     static let timeBonusScore = 1000
-    
     static let initialDuration: TimeInterval = 3.0
     static let beforeBonusDuration: TimeInterval = 3.0
 }
@@ -37,6 +42,7 @@ struct sceneSettings {
 struct controllerSettings {
     static let microControllerDeadZone: Float = 0.3 // 0 = no deadzone
     static let microControllerNumbingRatio: Float = 0.7 // 1.0 = not numb, 0 = entirely numb
+    
     static let onScreenButtonsY = -160 // -160 is fairly close to the bottom
     static let onScreenButtonLeftX = -350
     static let onScreenButtonRightX = -180
@@ -47,6 +53,7 @@ struct gateSettings {
     static let minScoringMultiplier = 4
     static let maxScoringMultiplier = 8
     static let score = 100
+    static let missedGateTimePenalty: TimeInterval = 5.0
 }
 
 enum ColliderType: UInt32 {
@@ -69,5 +76,3 @@ enum ButtonType: String {
     case right = "right_button.png"
     case fast = "fast_button.png"
 }
-
-//test

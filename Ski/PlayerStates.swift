@@ -25,7 +25,7 @@ class PlayerState: GKState {
 class PlayerAppearState: PlayerState {
     // MARK: Properties
     
-    var elapsedTime: TimeInterval = 0.0
+    var stateElapsedTime: TimeInterval = 0.0
     
     
     // MARK: GKState Life Cycle
@@ -33,7 +33,7 @@ class PlayerAppearState: PlayerState {
     override func didEnter(from previousState: GKState?) {
         super.didEnter(from: previousState)
         
-        elapsedTime = 0.0
+        stateElapsedTime = 0.0
         
         // Player standing still
         if let playerMoveComponent = entity.component(ofType: MoveComponent.self) {
@@ -43,18 +43,16 @@ class PlayerAppearState: PlayerState {
         // Disable the input component while the PlayerEntity appears.
         //inputComponent.isEnabled = false
         
-        // Play Initial Sound
-        entity.renderComponent.node.run(SKAction.playSoundFileNamed("Skiier_Start.m4a", waitForCompletion: false))
     }
 
     override func update(deltaTime seconds: TimeInterval) {
         super.update(deltaTime: seconds)
 
         // Update the amount of time that the PlayerEntity has been sitting.
-        elapsedTime += seconds
+        stateElapsedTime += seconds
         
         // Check if we have spent enough time
-        if elapsedTime > playerSettings.appearDuration {
+        if stateElapsedTime > playerSettings.appearDuration {
             stateMachine?.enter(PlayerInputControlledState.self)
         }
     }
@@ -222,11 +220,19 @@ class PlayerReachedFinishLineState: PlayerState {
 
         elapsedTime = 0.0
         
-        // Start moving Player downhill
+        // Remove on-screen controls
+        #if os(iOS)
+            if let scene = entity.renderComponent.node.scene as? LevelScene {
+                for node in scene.onScreenControlsLayer.children {
+                    node.removeFromParent()
+                }
+            }
+        #endif
+        
+        // Keep moving Player downhill
         if let playerMoveComponent = entity.component(ofType: MoveComponent.self) {
             playerMoveComponent.downhillMovementSpeed = (playerSettings.downhillSpeedMin / 100)
         }
-        // may not need this, as the player is already moving
         
         // Turn off controller input for the PlayerEntity when entering the input-controlled state.
         //inputComponent.isEnabled = false

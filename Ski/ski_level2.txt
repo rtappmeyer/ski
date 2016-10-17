@@ -1,0 +1,128 @@
+G G  G      G G
+  G    I     G 
+   G         G 
+ G          G  
+G        m     
+      m      G 
+q.p           G
+                
+                
+    q.p       G
+    m          
+           m   
+q.p    G       
+      G G       
+       G       
+   q.p        m
+   m           
+               
+ q.p   G       
+       G        
+    m         G
+     q.p       
+  G      G     
+                
+    G   m q.p  
+            m   
+   G m         
+         q.p
+   G          G 
+ m      m      
+     G   mm q.p
+    G          
+                
+       q.p G    
+                
+   G            
+ m        q.p  
+      G        G
+     G G m      
+        q.p     
+  m             
+            m   
+   q.p m      G 
+ G            G 
+  m m     G     
+q.p    G        
+                
+           G    
+      q.p       
+    G           
+         G      
+       G G  q.p 
+  m    G        
+                
+       q.p   G  
+    G           
+       m        
+G    q.p       G
+      G  mm     
+     G G   m    
+    q.p    m    
+   m  m     G   
+  m   m m       
+ m    q.p       
+     m  m  m    
+                
+G      G q.p   G
+  G            
+        m     G 
+ m    q.p      
+             m 
+      m        
+  G q.p  m    m
+           G  
+    m         
+m  q.p    G  G 
+      G    G  
+    G       G  
+   q.p         
+    m   G      
+ m   m       
+    q.p  m  G  
+              
+  G   G G      
+      q.p    m
+m          G   
+   m    G      
+       G q.p  G
+    G          
+            m  
+   G G G  m  q.p
+      G       
+m       G      
+    G     q.p  
+              
+     m       m 
+    G  q.p     
+      G    m   
+                
+G      m    q.p
+     m          
+       G   m   
+          q.p  
+G m            
+G              
+     q.p  G  G 
+               
+      m        
+q.p       m    
+ m     G    G  
+m          G   
+  G  q.p     G  
+               
+    G   G      
+ G m      q.p  
+              
+    G        G 
+ G    mq.pm  G 
+            G  
+ m            G
+    m q.p      
+  G          G 
+             G
+              
+              
+m              
+               
+        F

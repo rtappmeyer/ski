@@ -12,6 +12,7 @@ import GameplayKit
 class PlayerEntity: GKEntity {
     // MARK: Properties
     
+    var playerId: Int
     var elapsedTime: TimeInterval
     var score: Int
     var gateScoringMultiplier: Int
@@ -26,7 +27,8 @@ class PlayerEntity: GKEntity {
     
     var animationComponent: AnimationComponent!
     
-    override init() {
+    init(playerId: Int) {
+        self.playerId = playerId
         elapsedTime = 0
         score = 0
         gateScoringMultiplier = gateSettings.minScoringMultiplier
@@ -35,6 +37,9 @@ class PlayerEntity: GKEntity {
         reachedFinishLine = false
         
         super.init()
+        
+        // Load and set the score (carry over the score from previous levelscene)
+        score = loadScore()
         
         // Configure Components for this Entity
         
@@ -76,11 +81,19 @@ class PlayerEntity: GKEntity {
         
         // Connect the SpriteComponent with the RenderComponent
         renderComponent.node.addChild(spriteComponent.node)
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: GKEntity Life Cycle
+    
+    //override func update(deltaTime seconds: TimeInterval) {
+    //    super.update(deltaTime: seconds)
+    //    elapsedTime += seconds
+    //}
     
     func loadAnimations() -> [AnimationState: Animation] {
         let textureAtlas = SKTextureAtlas(named: "player")
@@ -91,5 +104,32 @@ class PlayerEntity: GKEntity {
         animations[.crash] = AnimationComponent.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "crash", forAnimationState: .crash, repeatTexturesForever: false)
         return animations
     }
+    
+    func loadScore() -> Int {
+        // Load the score stored in UserDefaults
+        let defaults = UserDefaults.standard
+        let scoreKeyConstant = "player\(playerId)_score"        // TODO: Multiplayer, lookout this is the correct player's score
+        return defaults.integer(forKey: scoreKeyConstant)
+    }
+    
+    func incrementScore(increment: Int) {
+        // Increment the score and save it in UserDefaults
+        if (increment > 0) {
+            score += increment
+            let defaults = UserDefaults.standard
+            let scoreKeyConstant = "player\(playerId)_score"    // TODO: Multiplayer
+            defaults.setValue(score, forKey: scoreKeyConstant)
+        }
+    }
+    
+    func resetScoreToZero() {
+        // Reset the score stored in UserDefaults to 0
+        let defaults = UserDefaults.standard
+        let scoreKeyConstant = "player\(playerId)_score"        // TODO: Multiplayer
+        defaults.setValue(0, forKey: scoreKeyConstant)
+        self.score = 0
+    }
+    
+
 
 }

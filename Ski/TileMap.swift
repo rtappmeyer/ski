@@ -94,10 +94,12 @@ struct tileMap {
     }
     
     // MARK: Level creation
-    mutating func createLevel() {
+    mutating func createLevel(level: Int) {
         
         // Read Level from File
-        let levelData = readLinesFromTextFile(fileName: "ski_level1.txt") // TODO: replace with ski_level1.txt
+        print("Loading level \(level) from tile map")
+        let levelFileName = "ski_level\(level).txt"
+        let levelData = readLinesFromTextFile(fileName: levelFileName)
         
         // Read lines of level data description
         var row: Int = 0
