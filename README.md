@@ -6,7 +6,7 @@ This game was created after the early 80's type Skiing games on 8 bit computers.
 ## Gameplay
 
 The gameplay is simple: Ride down the slope through all the gates and try to not hit any trees or rocks.
-There is a timelimit for this level (60 seconds).
+Push the button to speed up the skier. Points are awarded by passing through the gates. If you pass them consecutively, the points will become higher. If you fail to pass through, you are penalized 5 seconds. If you reach the goal within the time displayed at the start of each run, then you will go to the next level. Currently there are only 2 levels.
 
 ![image](https://thumbs.gfycat.com/MediumImpoliteAegeancat-size_restricted.gif)
 
