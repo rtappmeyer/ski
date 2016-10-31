@@ -120,7 +120,7 @@ class LevelSceneFinishState: LevelSceneState {
         print("bonusseconds=\(bonusSeconds)")
         if bonusSeconds > 0 {
             //scene.playerEntity.score += bonusSeconds * sceneSettings.timeBonusScore
-            bonusText = "Bonus Points \(sceneSettings.timeBonusScore) X\(bonusSeconds)"
+            //bonusText = "Bonus Points \(sceneSettings.timeBonusScore) X\(bonusSeconds)"
         } else {
             bonusText = "No Bonus Points"
         }
