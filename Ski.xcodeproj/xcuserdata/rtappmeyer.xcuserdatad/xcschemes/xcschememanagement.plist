@@ -14,10 +14,20 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>SkiWatch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>FB2159FE1D0B651F00F9A97A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FBAB91A31DC7CE3F0028CEB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

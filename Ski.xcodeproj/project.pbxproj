@@ -64,6 +64,45 @@
 		FB5748B91DAA14A1008C5F3D /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */; };
 		FB5748BA1DAA1723008C5F3D /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */; };
 		FB816F891DACBC2700ED06E0 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB816F881DACBC2700ED06E0 /* player.atlas */; };
+		FBAB91A81DC7CE3F0028CEB3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBAB91A61DC7CE3F0028CEB3 /* Interface.storyboard */; };
+		FBAB91AA1DC7CE3F0028CEB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAB91A91DC7CE3F0028CEB3 /* Assets.xcassets */; };
+		FBAB91B11DC7CE3F0028CEB3 /* SkiWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FBAB91B01DC7CE3F0028CEB3 /* SkiWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FBAB91B61DC7CE3F0028CEB3 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91B51DC7CE3F0028CEB3 /* InterfaceController.swift */; };
+		FBAB91BC1DC7CE3F0028CEB3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91BB1DC7CE3F0028CEB3 /* ExtensionDelegate.swift */; };
+		FBAB91BE1DC7CE3F0028CEB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBAB91BD1DC7CE3F0028CEB3 /* Assets.xcassets */; };
+		FBAB91C21DC7CE3F0028CEB3 /* SkiWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = FBAB91A41DC7CE3F0028CEB3 /* SkiWatch.app */; };
+		FBAB91CB1DC7CEB80028CEB3 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB179D821D264EEF00CDE62B /* GameSettings.swift */; };
+		FBAB91CC1DC7CEBF0028CEB3 /* TileMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DCB1CDE5D050090E9F6 /* TileMap.swift */; };
+		FBAB91CD1DC7CECA0028CEB3 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB816F881DACBC2700ED06E0 /* player.atlas */; };
+		FBAB91CE1DC7CECA0028CEB3 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FB816F881DACBC2700ED06E0 /* player.atlas */; };
+		FBAB91D11DC7CED50028CEB3 /* Skiier_Crash.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50B1DA4BF550067DA8E /* Skiier_Crash.m4a */; };
+		FBAB91D21DC7CED60028CEB3 /* Skiier_Crash.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50B1DA4BF550067DA8E /* Skiier_Crash.m4a */; };
+		FBAB91D31DC7CEDE0028CEB3 /* Skiier_Start.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50C1DA4BF550067DA8E /* Skiier_Start.m4a */; };
+		FBAB91D41DC7CEDE0028CEB3 /* Skiier_Start.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50C1DA4BF550067DA8E /* Skiier_Start.m4a */; };
+		FBAB91D51DC7CEE10028CEB3 /* Skiier_Main_Loop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50D1DA4BF550067DA8E /* Skiier_Main_Loop.m4a */; };
+		FBAB91D61DC7CEE10028CEB3 /* Skiier_Main_Loop.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50D1DA4BF550067DA8E /* Skiier_Main_Loop.m4a */; };
+		FBAB91D71DC7CEE40028CEB3 /* Skiier_Finish.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50E1DA4BF550067DA8E /* Skiier_Finish.m4a */; };
+		FBAB91D81DC7CEE50028CEB3 /* Skiier_Finish.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FBCAC50E1DA4BF550067DA8E /* Skiier_Finish.m4a */; };
+		FBAB91D91DC7CEE70028CEB3 /* Commodore Pixelized v1.2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */; };
+		FBAB91DA1DC7CEE80028CEB3 /* Commodore Pixelized v1.2.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB4EECE41CDF050D0024C042 /* Commodore Pixelized v1.2.ttf */; };
+		FBAB91DB1DC7CEEA0028CEB3 /* debug_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB06D8931D07AFDB00AAFD63 /* debug_level1.txt */; };
+		FBAB91DC1DC7CEEB0028CEB3 /* debug_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB06D8931D07AFDB00AAFD63 /* debug_level1.txt */; };
+		FBAB91DD1DC7CEEE0028CEB3 /* ski_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */; };
+		FBAB91DE1DC7CEEE0028CEB3 /* ski_level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC91CDE5CCF0090E9F6 /* ski_level1.txt */; };
+		FBAB91DF1DC7CEF10028CEB3 /* ski_level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB24512E1DB548F800553AD5 /* ski_level2.txt */; };
+		FBAB91E01DC7CEF20028CEB3 /* ski_level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB24512E1DB548F800553AD5 /* ski_level2.txt */; };
+		FBAB91E11DC7CEF20028CEB3 /* ski_level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = FB24512E1DB548F800553AD5 /* ski_level2.txt */; };
+		FBAB91E21DC7CEF70028CEB3 /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC71CDE5CBD0090E9F6 /* world.atlas */; };
+		FBAB91E31DC7CEF80028CEB3 /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FBD75DC71CDE5CBD0090E9F6 /* world.atlas */; };
+		FBAB91E41DC7CEFC0028CEB3 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB43C57D1CE8310500BB0404 /* UIColor+Extensions.swift */; };
+		FBAB91E51DC7CF000028CEB3 /* SKLabelNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2451261DB344BC00553AD5 /* SKLabelNode+Extensions.swift */; };
+		FBAB91E61DC7CF020028CEB3 /* SKLabelNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2451261DB344BC00553AD5 /* SKLabelNode+Extensions.swift */; };
+		FBAB91E91DC7CF230028CEB3 /* PostNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB06D88B1D06225600AAFD63 /* PostNode.swift */; };
+		FBAB91EA1DC7CF260028CEB3 /* MissedNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB06D88D1D06541A00AAFD63 /* MissedNode.swift */; };
+		FBAB91EE1DC7CFDB0028CEB3 /* GateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91EC1DC7CFDB0028CEB3 /* GateNode.swift */; };
+		FBAB91F21DC7D0170028CEB3 /* ObstacleNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91EF1DC7D0170028CEB3 /* ObstacleNode.swift */; };
+		FBAB91F31DC7D0170028CEB3 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91F01DC7D0170028CEB3 /* PlayerNode.swift */; };
+		FBAB91F41DC7D0170028CEB3 /* WatchGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB91F11DC7D0170028CEB3 /* WatchGameScene.swift */; };
 		FBAED8AC1CB9C8A800438E3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */; };
 		FBAED8B01CB9C8A800438E3F /* LevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8AF1CB9C8A800438E3F /* LevelScene.swift */; };
 		FBAED8B21CB9C8A800438E3F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAED8B11CB9C8A800438E3F /* GameViewController.swift */; };
@@ -86,6 +125,48 @@
 		FBD75DD81CDE60EB0090E9F6 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD71CDE60EB0090E9F6 /* SpriteComponent.swift */; };
 		FBD75DDA1CDE61140090E9F6 /* MoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD75DD91CDE61140090E9F6 /* MoveComponent.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FBAB91B21DC7CE3F0028CEB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBAED8A01CB9C8A800438E3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBAB91AF1DC7CE3F0028CEB3;
+			remoteInfo = "SkiWatch Extension";
+		};
+		FBAB91C01DC7CE3F0028CEB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBAED8A01CB9C8A800438E3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBAB91A31DC7CE3F0028CEB3;
+			remoteInfo = SkiWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FBAB91C81DC7CE3F0028CEB3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FBAB91B11DC7CE3F0028CEB3 /* SkiWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAB91CA1DC7CE3F0028CEB3 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				FBAB91C21DC7CE3F0028CEB3 /* SkiWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FB06D8821D04EB4600AAFD63 /* EntityNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityNode.swift; sourceTree = "<group>"; };
@@ -118,6 +199,19 @@
 		FB5748B61DA9B559008C5F3D /* controls.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = controls.atlas; sourceTree = "<group>"; };
 		FB5748B81DAA14A1008C5F3D /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
 		FB816F881DACBC2700ED06E0 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
+		FBAB91A41DC7CE3F0028CEB3 /* SkiWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkiWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBAB91A71DC7CE3F0028CEB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		FBAB91A91DC7CE3F0028CEB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FBAB91AB1DC7CE3F0028CEB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBAB91B01DC7CE3F0028CEB3 /* SkiWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SkiWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBAB91B51DC7CE3F0028CEB3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		FBAB91BB1DC7CE3F0028CEB3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		FBAB91BD1DC7CE3F0028CEB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FBAB91BF1DC7CE3F0028CEB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBAB91EC1DC7CFDB0028CEB3 /* GateNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GateNode.swift; sourceTree = "<group>"; };
+		FBAB91EF1DC7D0170028CEB3 /* ObstacleNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleNode.swift; sourceTree = "<group>"; };
+		FBAB91F01DC7D0170028CEB3 /* PlayerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
+		FBAB91F11DC7D0170028CEB3 /* WatchGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchGameScene.swift; sourceTree = "<group>"; };
 		FBAED8A81CB9C8A800438E3F /* Ski.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ski.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBAED8AB1CB9C8A800438E3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Ski/AppDelegate.swift; sourceTree = "<group>"; };
 		FBAED8AF1CB9C8A800438E3F /* LevelScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelScene.swift; sourceTree = "<group>"; };
@@ -145,6 +239,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB18060C1D0B6FD100B84DB1 /* GameController.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAB91AD1DC7CE3F0028CEB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,12 +304,41 @@
 			name = "iOS Controller";
 			sourceTree = "<group>";
 		};
+		FBAB91A51DC7CE3F0028CEB3 /* Watch Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FBAB91A61DC7CE3F0028CEB3 /* Interface.storyboard */,
+				FBAB91A91DC7CE3F0028CEB3 /* Assets.xcassets */,
+				FBAB91AB1DC7CE3F0028CEB3 /* Info.plist */,
+			);
+			name = "Watch Controller";
+			path = SkiWatch;
+			sourceTree = "<group>";
+		};
+		FBAB91B41DC7CE3F0028CEB3 /* Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FBAB91EF1DC7D0170028CEB3 /* ObstacleNode.swift */,
+				FBAB91F01DC7D0170028CEB3 /* PlayerNode.swift */,
+				FBAB91F11DC7D0170028CEB3 /* WatchGameScene.swift */,
+				FBAB91EC1DC7CFDB0028CEB3 /* GateNode.swift */,
+				FBAB91B51DC7CE3F0028CEB3 /* InterfaceController.swift */,
+				FBAB91BB1DC7CE3F0028CEB3 /* ExtensionDelegate.swift */,
+				FBAB91BD1DC7CE3F0028CEB3 /* Assets.xcassets */,
+				FBAB91BF1DC7CE3F0028CEB3 /* Info.plist */,
+			);
+			name = "Watch Extension";
+			path = "SkiWatch Extension";
+			sourceTree = "<group>";
+		};
 		FBAED89F1CB9C8A800438E3F = {
 			isa = PBXGroup;
 			children = (
 				FBAED8AA1CB9C8A800438E3F /* Ski */,
 				FB215A171D0B676600F9A97A /* iOS Controller */,
 				FB215A001D0B651F00F9A97A /* TV Controller */,
+				FBAB91A51DC7CE3F0028CEB3 /* Watch Controller */,
+				FBAB91B41DC7CE3F0028CEB3 /* Watch Extension */,
 				FB18060D1D0B762700B84DB1 /* Frameworks */,
 				FBAED8A91CB9C8A800438E3F /* Products */,
 			);
@@ -219,6 +349,8 @@
 			children = (
 				FBAED8A81CB9C8A800438E3F /* Ski.app */,
 				FB2159FF1D0B651F00F9A97A /* SkiTV.app */,
+				FBAB91A41DC7CE3F0028CEB3 /* SkiWatch.app */,
+				FBAB91B01DC7CE3F0028CEB3 /* SkiWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,6 +462,40 @@
 			productReference = FB2159FF1D0B651F00F9A97A /* SkiTV.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FBAB91A31DC7CE3F0028CEB3 /* SkiWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBAB91C91DC7CE3F0028CEB3 /* Build configuration list for PBXNativeTarget "SkiWatch" */;
+			buildPhases = (
+				FBAB91A21DC7CE3F0028CEB3 /* Resources */,
+				FBAB91C81DC7CE3F0028CEB3 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBAB91B31DC7CE3F0028CEB3 /* PBXTargetDependency */,
+			);
+			name = SkiWatch;
+			productName = SkiWatch;
+			productReference = FBAB91A41DC7CE3F0028CEB3 /* SkiWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		FBAB91AF1DC7CE3F0028CEB3 /* SkiWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBAB91C71DC7CE3F0028CEB3 /* Build configuration list for PBXNativeTarget "SkiWatch Extension" */;
+			buildPhases = (
+				FBAB91AC1DC7CE3F0028CEB3 /* Sources */,
+				FBAB91AD1DC7CE3F0028CEB3 /* Frameworks */,
+				FBAB91AE1DC7CE3F0028CEB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SkiWatch Extension";
+			productName = "SkiWatch Extension";
+			productReference = FBAB91B01DC7CE3F0028CEB3 /* SkiWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		FBAED8A71CB9C8A800438E3F /* Ski */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBAED8BE1CB9C8A800438E3F /* Build configuration list for PBXNativeTarget "Ski" */;
@@ -337,10 +503,12 @@
 				FBAED8A41CB9C8A800438E3F /* Sources */,
 				FBAED8A51CB9C8A800438E3F /* Frameworks */,
 				FBAED8A61CB9C8A800438E3F /* Resources */,
+				FBAB91CA1DC7CE3F0028CEB3 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				FBAB91C11DC7CE3F0028CEB3 /* PBXTargetDependency */,
 			);
 			name = Ski;
 			productName = Ski;
@@ -353,7 +521,7 @@
 		FBAED8A01CB9C8A800438E3F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0810;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Ralf Tappmeyer";
 				TargetAttributes = {
@@ -366,6 +534,16 @@
 								enabled = 1;
 							};
 						};
+					};
+					FBAB91A31DC7CE3F0028CEB3 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = RZWF2A237Y;
+						ProvisioningStyle = Automatic;
+					};
+					FBAB91AF1DC7CE3F0028CEB3 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = RZWF2A237Y;
+						ProvisioningStyle = Automatic;
 					};
 					FBAED8A71CB9C8A800438E3F = {
 						CreatedOnToolsVersion = 7.3;
@@ -389,6 +567,8 @@
 			targets = (
 				FBAED8A71CB9C8A800438E3F /* Ski */,
 				FB2159FE1D0B651F00F9A97A /* SkiTV */,
+				FBAB91A31DC7CE3F0028CEB3 /* SkiWatch */,
+				FBAB91AF1DC7CE3F0028CEB3 /* SkiWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -399,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBCAC5161DA4C91D0067DA8E /* Skiier_Finish.m4a in Resources */,
+				FBAB91E11DC7CEF20028CEB3 /* ski_level2.txt in Resources */,
 				FB215A211D0B67C900F9A97A /* ski_level1.txt in Resources */,
 				FBCAC5151DA4C91A0067DA8E /* Skiier_Main_Loop.m4a in Resources */,
 				FB215A221D0B67CC00F9A97A /* world.atlas in Resources */,
@@ -408,6 +589,43 @@
 				FBCAC5131DA4C9140067DA8E /* Skiier_Crash.m4a in Resources */,
 				FB215A201D0B67C600F9A97A /* debug_level1.txt in Resources */,
 				FB215A1F1D0B67C400F9A97A /* Commodore Pixelized v1.2.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAB91A21DC7CE3F0028CEB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBAB91D51DC7CEE10028CEB3 /* Skiier_Main_Loop.m4a in Resources */,
+				FBAB91DF1DC7CEF10028CEB3 /* ski_level2.txt in Resources */,
+				FBAB91CD1DC7CECA0028CEB3 /* player.atlas in Resources */,
+				FBAB91D91DC7CEE70028CEB3 /* Commodore Pixelized v1.2.ttf in Resources */,
+				FBAB91AA1DC7CE3F0028CEB3 /* Assets.xcassets in Resources */,
+				FBAB91A81DC7CE3F0028CEB3 /* Interface.storyboard in Resources */,
+				FBAB91E21DC7CEF70028CEB3 /* world.atlas in Resources */,
+				FBAB91DB1DC7CEEA0028CEB3 /* debug_level1.txt in Resources */,
+				FBAB91D11DC7CED50028CEB3 /* Skiier_Crash.m4a in Resources */,
+				FBAB91D31DC7CEDE0028CEB3 /* Skiier_Start.m4a in Resources */,
+				FBAB91D71DC7CEE40028CEB3 /* Skiier_Finish.m4a in Resources */,
+				FBAB91DD1DC7CEEE0028CEB3 /* ski_level1.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAB91AE1DC7CE3F0028CEB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBAB91D61DC7CEE10028CEB3 /* Skiier_Main_Loop.m4a in Resources */,
+				FBAB91E01DC7CEF20028CEB3 /* ski_level2.txt in Resources */,
+				FBAB91CE1DC7CECA0028CEB3 /* player.atlas in Resources */,
+				FBAB91DA1DC7CEE80028CEB3 /* Commodore Pixelized v1.2.ttf in Resources */,
+				FBAB91BE1DC7CE3F0028CEB3 /* Assets.xcassets in Resources */,
+				FBAB91E31DC7CEF80028CEB3 /* world.atlas in Resources */,
+				FBAB91DC1DC7CEEB0028CEB3 /* debug_level1.txt in Resources */,
+				FBAB91D21DC7CED60028CEB3 /* Skiier_Crash.m4a in Resources */,
+				FBAB91D41DC7CEDE0028CEB3 /* Skiier_Start.m4a in Resources */,
+				FBAB91D81DC7CEE50028CEB3 /* Skiier_Finish.m4a in Resources */,
+				FBAB91DE1DC7CEEE0028CEB3 /* ski_level1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,9 +680,29 @@
 				FB215A291D0B67E200F9A97A /* GateStates.swift in Sources */,
 				FB215A381D0B680D00F9A97A /* LevelScene.swift in Sources */,
 				FB215A081D0B651F00F9A97A /* GameViewController.swift in Sources */,
+				FBAB91E61DC7CF020028CEB3 /* SKLabelNode+Extensions.swift in Sources */,
 				FB215A281D0B67E000F9A97A /* PlayerStates.swift in Sources */,
 				FB215A311D0B67F800F9A97A /* RenderComponent.swift in Sources */,
 				FB215A361D0B680600F9A97A /* StateComponent.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBAB91AC1DC7CE3F0028CEB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FBAB91CC1DC7CEBF0028CEB3 /* TileMap.swift in Sources */,
+				FBAB91E51DC7CF000028CEB3 /* SKLabelNode+Extensions.swift in Sources */,
+				FBAB91F31DC7D0170028CEB3 /* PlayerNode.swift in Sources */,
+				FBAB91EE1DC7CFDB0028CEB3 /* GateNode.swift in Sources */,
+				FBAB91EA1DC7CF260028CEB3 /* MissedNode.swift in Sources */,
+				FBAB91E41DC7CEFC0028CEB3 /* UIColor+Extensions.swift in Sources */,
+				FBAB91CB1DC7CEB80028CEB3 /* GameSettings.swift in Sources */,
+				FBAB91E91DC7CF230028CEB3 /* PostNode.swift in Sources */,
+				FBAB91B61DC7CE3F0028CEB3 /* InterfaceController.swift in Sources */,
+				FBAB91F41DC7D0170028CEB3 /* WatchGameScene.swift in Sources */,
+				FBAB91F21DC7D0170028CEB3 /* ObstacleNode.swift in Sources */,
+				FBAB91BC1DC7CE3F0028CEB3 /* ExtensionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +742,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		FBAB91B31DC7CE3F0028CEB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBAB91AF1DC7CE3F0028CEB3 /* SkiWatch Extension */;
+			targetProxy = FBAB91B21DC7CE3F0028CEB3 /* PBXContainerItemProxy */;
+		};
+		FBAB91C11DC7CE3F0028CEB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBAB91A31DC7CE3F0028CEB3 /* SkiWatch */;
+			targetProxy = FBAB91C01DC7CE3F0028CEB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		FB215A0B1D0B651F00F9A97A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -511,6 +762,14 @@
 				FB215A0C1D0B651F00F9A97A /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FBAB91A61DC7CE3F0028CEB3 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FBAB91A71DC7CE3F0028CEB3 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		FBAED8B31CB9C8A800438E3F /* Main.storyboard */ = {
@@ -572,6 +831,94 @@
 			};
 			name = Release;
 		};
+		FBAB91C31DC7CE3F0028CEB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RZWF2A237Y;
+				IBSC_MODULE = SkiWatch_Extension;
+				INFOPLIST_FILE = SkiWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = tappmeyer.Ski.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		FBAB91C41DC7CE3F0028CEB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = RZWF2A237Y;
+				IBSC_MODULE = SkiWatch_Extension;
+				INFOPLIST_FILE = SkiWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = tappmeyer.Ski.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		FBAB91C51DC7CE3F0028CEB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RZWF2A237Y;
+				INFOPLIST_FILE = "SkiWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tappmeyer.Ski.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		FBAB91C61DC7CE3F0028CEB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = RZWF2A237Y;
+				INFOPLIST_FILE = "SkiWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tappmeyer.Ski.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
 		FBAED8BC1CB9C8A800438E3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -612,7 +959,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -656,7 +1003,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -706,6 +1053,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		FBAB91C71DC7CE3F0028CEB3 /* Build configuration list for PBXNativeTarget "SkiWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBAB91C51DC7CE3F0028CEB3 /* Debug */,
+				FBAB91C61DC7CE3F0028CEB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FBAB91C91DC7CE3F0028CEB3 /* Build configuration list for PBXNativeTarget "SkiWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBAB91C31DC7CE3F0028CEB3 /* Debug */,
+				FBAB91C41DC7CE3F0028CEB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		FBAED8A31CB9C8A800438E3F /* Build configuration list for PBXProject "Ski" */ = {
 			isa = XCConfigurationList;
