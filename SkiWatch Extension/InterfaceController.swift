@@ -44,12 +44,14 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     }
     
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
-        if rotationalDelta > 0 {
+        if rotationalDelta > 0.005 {
             skScene.movement.x = 1
-        }
-        if rotationalDelta < 0 {
+        } else if rotationalDelta < -0.005 {
             skScene.movement.x = -1
+        } else {
+            skScene.movement.x = 0
         }
+        
         //skScene.movement.x += CGFloat(rotationalDelta * 2.0)
     }
     

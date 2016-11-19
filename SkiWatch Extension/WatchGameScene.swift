@@ -32,6 +32,9 @@ class WatchGameScene: SKScene, tileMapDelegate {
     var score = 0
     var movement = CGPoint.zero
     
+    // Debaug
+    var testAnimation: SKAction!
+    
     init(size: CGSize, level: Int ) {
         if level <= levelSettings.levels.count {
             print("Initializing Level:")
@@ -81,6 +84,13 @@ class WatchGameScene: SKScene, tileMapDelegate {
         guiLayer.addChild(timeLabel)
 
         setupLevel()
+        
+//        let timePerFrame = TimeInterval(1.0 / 4.0) // 0.25ms
+//        let atlas = SKTextureAtlas(named: "player")
+//        let defaultTexture = atlas.textureNamed("left__00.png")
+//        let testAnimation = SKAction.animate(with: [defaultTexture], timePerFrame: timePerFrame, resize: true, restore: false)
+//        playerNode.run(testAnimation)
+//        
     }
     
     // MARK: TileMap Delegate
@@ -166,8 +176,23 @@ class WatchGameScene: SKScene, tileMapDelegate {
         let xMovement = ((movement.x * CGFloat(deltaTime)) * playerSettings.movementSpeed)
         let yMovement = ((playerSettings.downhillSpeedMin / -100 * CGFloat(deltaTime)) * playerSettings.movementSpeed)
         playerNode.position = CGPoint(x: playerNode.position.x + xMovement, y: playerNode.position.y + yMovement)
-        movement = CGPoint.zero
         
+        // Player animation
+        if movement.x < -0.1 {
+            if playerNode.currentAnimationState != nil && playerNode.currentAnimationState! == .left { return}
+            runAnimation(node: playerNode.spriteNode, animation: playerNode.animations[.left]!)
+            playerNode.currentAnimationState = .left
+        } else if movement.x > 0.1 {
+            if playerNode.currentAnimationState != nil && playerNode.currentAnimationState! == .right { return}
+            runAnimation(node: playerNode.spriteNode, animation: playerNode.animations[.right]!)
+            playerNode.currentAnimationState = .right
+        } else {
+            if playerNode.currentAnimationState != nil && playerNode.currentAnimationState! == .idle { return}
+            runAnimation(node: playerNode.spriteNode, animation: playerNode.animations[.idle]!)
+            playerNode.currentAnimationState = .idle
+        }
+        
+        movement = CGPoint.zero
     }
     
     override func didFinishUpdate() {
@@ -186,6 +211,9 @@ class WatchGameScene: SKScene, tileMapDelegate {
         worldGenerator.presentLayerViaDelegate()
         setPlayerConstraints()
         setCameraConstraints()
+        
+        // Play Initial Sound
+        worldLayer.run(SKAction.playSoundFileNamed("Skiier_Start.m4a", waitForCompletion: false))
     }
     
     func createLabel(name: String, text: String, position: CGPoint, color: UIColor, alignment: SKLabelHorizontalAlignmentMode) -> SKLabelNode {
@@ -199,6 +227,20 @@ class WatchGameScene: SKScene, tileMapDelegate {
         label.name = name
         label.zPosition = 1000
         return label
+    }
+    
+    func runAnimation(node: SKNode, animation: Animation) {
+        let actionKey = "Animation"
+        let timePerFrame = TimeInterval(1.0 / 4.0) // 0.25ms
+
+        node.removeAction(forKey: actionKey)
+        let texturesAction: SKAction
+        if animation.repeatTexturesForever {
+            texturesAction = SKAction.repeatForever(SKAction.animate(with: animation.textures, timePerFrame: timePerFrame, resize: true, restore: true))
+        } else {
+            texturesAction = SKAction.animate(with: animation.textures, timePerFrame: timePerFrame, resize: true, restore: false)
+        }
+        node.run(texturesAction, withKey: actionKey)
     }
     
     func centerCameraOnPoint(point: CGPoint) {

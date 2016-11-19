@@ -6,7 +6,6 @@
 //  Copyright © 2016 Ralf Tappmeyer. All rights reserved.
 //
 
-import AVFoundation
 import GameplayKit
 import SpriteKit
 
