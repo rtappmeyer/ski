@@ -105,7 +105,7 @@ struct tileMap {
         var row: Int = 0
         for line in levelData {
             var pos: Int = 0
-            for index in line.characters.indices {
+            for index in line.indices {
                 if let foundIndex = tileCharacter.getAll.index(where: {$0.rawValue == String(line[index])}) {
                     setTile(position: CGPoint(x: pos, y: row), toValue: foundIndex)
                 }
