@@ -4,6 +4,10 @@
       "idiom" : "tv",
       "filename" : "skiier_tv_icon_large.png",
       "scale" : "1x"
+    },
+    {
+      "idiom" : "tv",
+      "scale" : "2x"
     }
   ],
   "info" : {

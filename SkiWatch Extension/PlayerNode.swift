@@ -60,9 +60,10 @@ class PlayerNode: SKNode {
         
         let physicsBody = SKPhysicsBody(circleOfRadius: 4)
         physicsBody.categoryBitMask = ColliderType.player.rawValue
-        physicsBody.contactTestBitMask = ColliderType.gate.rawValue | ColliderType.obstacle.rawValue | ColliderType.finish.rawValue
+        physicsBody.contactTestBitMask = ColliderType.gate.rawValue | ColliderType.obstacle.rawValue | ColliderType.finish.rawValue | ColliderType.post.rawValue | ColliderType.missed.rawValue
         physicsBody.collisionBitMask = ColliderType.none.rawValue
-        physicsBody.isDynamic = true
+        
+        self.physicsBody = physicsBody
 
     }
     
@@ -77,7 +78,7 @@ class PlayerNode: SKNode {
         animations[.left] = PlayerNode.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "left", forAnimationState: .left)
         animations[.right] = PlayerNode.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "right", forAnimationState: .right)
         animations[.crash] = PlayerNode.animationFromAtlas(atlas: textureAtlas, withImageIdentifier: "crash", forAnimationState: .crash, repeatTexturesForever: false)
-        print("Animations from loadAnimation = \(animations)")
+        //print("Animations from loadAnimation = \(animations)")
         return animations
     }
     

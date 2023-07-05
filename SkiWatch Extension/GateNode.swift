@@ -33,6 +33,12 @@ class GateNode: SKNode {
         leftMissedShape = MissedNode(offset: CGPoint(x: -276, y: -8))
         rightMissedShape = MissedNode(offset: CGPoint(x: 8, y: -8))
         
+        let physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 256, height: 16), center: CGPoint(x: -6,y: -8))
+        physicsBody.categoryBitMask = ColliderType.gate.rawValue
+        physicsBody.contactTestBitMask = ColliderType.player.rawValue
+        
+        self.physicsBody = physicsBody
+        
         self.addChild(leftPost)
         self.addChild(rightPost)
         self.addChild(leftMissedShape)

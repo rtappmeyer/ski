@@ -1,11 +1,7 @@
 {
   "images" : [
     {
-      "idiom" : "tv",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "tv",
+      "idiom" : "watch",
       "scale" : "2x"
     }
   ],

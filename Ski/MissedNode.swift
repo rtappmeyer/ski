@@ -22,7 +22,7 @@ class MissedNode: SKShapeNode {
         missedPhysicsBody.categoryBitMask = ColliderType.missed.rawValue
         missedPhysicsBody.contactTestBitMask = ColliderType.player.rawValue
         missedPhysicsBody.collisionBitMask = ColliderType.none.rawValue
-        missedPhysicsBody.isDynamic = true
+//        missedPhysicsBody.isDynamic = true
 
         physicsBody = missedPhysicsBody
     }

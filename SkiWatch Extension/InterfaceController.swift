@@ -13,19 +13,22 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     
     @IBOutlet var skInterface: WKInterfaceSKScene!
     
-    let skScene = WatchGameScene(size: WKInterfaceDevice.current().screenBounds.size, level: 1)
+    let skScene = WatchGameScene(size: WKInterfaceDevice.current().screenBounds.size) //, level: 1)
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
         // Set the scale mode to scale to fit the window
-        skScene.scaleMode = .aspectFill
+        //skScene.scaleMode = .aspectFill
+        //skView.showsFPS = true
+        //skView.showsNodeCount = true
+        //skView.showsPhysics = true
         
         // Present the scene
         self.skInterface.presentScene(skScene)
         
         // Use a value that will maintain a consistent frame rate
-        self.skInterface.preferredFramesPerSecond = 30
+        //self.skInterface.preferredFramesPerSecond = 30
         
     }
     
@@ -44,9 +47,9 @@ class InterfaceController: WKInterfaceController, WKCrownDelegate {
     }
     
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
-        if rotationalDelta > 0.005 {
+        if rotationalDelta > watchSettings.crownRotation {
             skScene.movement.x = 1
-        } else if rotationalDelta < -0.005 {
+        } else if rotationalDelta < (watchSettings.crownRotation * -1) {
             skScene.movement.x = -1
         } else {
             skScene.movement.x = 0

@@ -45,13 +45,15 @@ class ObstacleNode: SKNode {
         
         texture.filteringMode = SKTextureFilteringMode.nearest
         let node = SKSpriteNode(texture: texture, color: SKColor.white, size: size)
-        self.addChild(node)
         
         let physicsBody = SKPhysicsBody(rectangleOf: contactSize, center: contactOffset)
         physicsBody.categoryBitMask = ColliderType.obstacle.rawValue
         physicsBody.contactTestBitMask = ColliderType.player.rawValue
         physicsBody.collisionBitMask = ColliderType.none.rawValue
-        physicsBody.isDynamic = true
+        
+        node.physicsBody = physicsBody
+        
+        self.addChild(node)
         
     }
     

@@ -32,14 +32,15 @@ class WatchGameScene: SKScene, tileMapDelegate {
     var score = 0
     var movement = CGPoint.zero
     
-    // Debaug
+    // Debug
     var testAnimation: SKAction!
     
-    init(size: CGSize, level: Int ) {
+    override init(size: CGSize) { //, level: Int ) {
+        level = 1
         if level <= levelSettings.levels.count {
             print("Initializing Level:")
             self.timeLimit = levelSettings.levels[level-1].timeLimit
-            self.level = level
+            //self.level = level
             print("Level=\(self.level)")
             print("Timelimit=\(self.timeLimit)")
         } else {
@@ -47,7 +48,7 @@ class WatchGameScene: SKScene, tileMapDelegate {
             self.level = 1
             self.timeLimit = levelSettings.levels[0].timeLimit
         }
-        
+        print("Init just happend. going to super init netxt")
         super.init(size: size)
         setup()
     }
@@ -84,13 +85,6 @@ class WatchGameScene: SKScene, tileMapDelegate {
         guiLayer.addChild(timeLabel)
 
         setupLevel()
-        
-//        let timePerFrame = TimeInterval(1.0 / 4.0) // 0.25ms
-//        let atlas = SKTextureAtlas(named: "player")
-//        let defaultTexture = atlas.textureNamed("left__00.png")
-//        let testAnimation = SKAction.animate(with: [defaultTexture], timePerFrame: timePerFrame, resize: true, restore: false)
-//        playerNode.run(testAnimation)
-//        
     }
     
     // MARK: TileMap Delegate
@@ -172,9 +166,11 @@ class WatchGameScene: SKScene, tileMapDelegate {
         //centerCameraOnPoint(point: newCameraPosition)
         
         // Player movement
-        if playerNode.isCrashed { return }  // No updates if player is crashed
+        if playerNode.isCrashed {
+            return
+        }  // No updates if player is crashed
         let xMovement = ((movement.x * CGFloat(deltaTime)) * playerSettings.movementSpeed)
-        let yMovement = ((playerSettings.downhillSpeedMin / -100 * CGFloat(deltaTime)) * playerSettings.movementSpeed)
+        let yMovement = ((playerSettings.downhillSpeedWatch / -100 * CGFloat(deltaTime)) * playerSettings.movementSpeed)
         playerNode.position = CGPoint(x: playerNode.position.x + xMovement, y: playerNode.position.y + yMovement)
         
         // Player animation
@@ -291,6 +287,140 @@ class WatchGameScene: SKScene, tileMapDelegate {
     }
 }
 
+// MARK: - SKPhysicsContact Delegate
+
 extension WatchGameScene: SKPhysicsContactDelegate {
     
+    func didBegin(_ contact: SKPhysicsContact) {
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        print("SKPhysicsContact: didBegin")
+        
+        // Did Player reach the finish line?
+        if bodyA.categoryBitMask == ColliderType.finish.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Start the finish sequence
+//                let playerEntity = (bodyB as! EntityNode).parentEntity as! PlayerEntity
+//                playerEntity.reachedFinishLine = true
+//                stateMachine.enter(LevelSceneFinishState.self)  // TODO: Multiplayer only go here if all players reached the finishline
+            }
+        }
+        // Did Player pass through a gate?
+        if bodyA.categoryBitMask == ColliderType.gate.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Gate successfully passed
+//                let gateEntity = (bodyA as! EntityNode).parentEntity as! GateEntity
+//                gateEntity.stateComponent.stateMachine.enter(GatePassedState.self)
+                print("Gate: Passed")
+            }
+        }
+        // Did Player run outside a gate?
+        if bodyA.categoryBitMask == ColliderType.missed.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Mark this gate as missed and reset scoring multiplier
+//                let gateEntity = ((bodyA as! MissedNode).parent as! GateNode).parentEntity as GateEntity
+//                gateEntity.stateComponent.stateMachine.enter(GateRunOutsideState.self)
+//                let playerEntity = (bodyB as! EntityNode).parentEntity as! PlayerEntity
+//                playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+                print("Gate: Missed")
+            }
+        }
+        // Did Player run over a post?
+        if bodyA.categoryBitMask == ColliderType.post.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Mark this gate as missed, display crooked post, and reset scoring multiplier
+                let postNode = bodyA.node as! PostNode
+                postNode.displayCrookedPost()
+                
+//                let playerEntity = (bodyB as! EntityNode).parentEntity as! PlayerEntity
+//                playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+//                let gateEntity = ((bodyA as! PostNode).parent as! GateNode).parentEntity as GateEntity
+//                gateEntity.stateComponent.stateMachine.enter(GateRunOverPostState.self)
+
+                print("Gate: Missed (run over)")
+            }
+        }
+        // Did Player hit an obstacle?
+        if bodyA.categoryBitMask == ColliderType.obstacle.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Player crashes and reset scoring multiplier
+                print("player crashes")
+                playerNode.isCrashed = true
+                playerCrashed()
+                
+                // Remove obstacle
+//                bodyA.node?.removeFromParent()
+
+        
+//                let playerEntity = (bodyB as! EntityNode).parentEntity as! PlayerEntity
+//                playerEntity.isCrashed = true
+//                playerEntity.gateScoringMultiplier = gateSettings.minScoringMultiplier
+            }
+        }
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        let bodyA = contact.bodyA
+        let bodyB = contact.bodyB
+        print("SKPhysicsContact: didEnd")
+        
+        // Player did hit an obstacle
+        if bodyA.categoryBitMask == ColliderType.obstacle.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                // Remove the obstacle the player crashed into
+                print("Player did hit an obstacle")
+                playerNode.isCrashed = false
+                bodyA.node?.removeFromParent()
+            }
+        }
+        
+        // Player moved past a gate
+        if bodyA.categoryBitMask == ColliderType.gate.rawValue {
+            if bodyB.categoryBitMask == ColliderType.player.rawValue {
+                print("Player moved past a gate")
+//                // After contact with the gate ends, check if gate's passed and calculate and display the score and it's multiplier. If player missed the gate, we're adding penalty time
+//                let gateEntity = (bodyA as! EntityNode).parentEntity as! GateEntity
+//                let playerEntity = (bodyB as! EntityNode).parentEntity as! PlayerEntity
+//                // Was this gate successfully passed? (The statemachine will tell us)
+//                if gateEntity.stateComponent.stateMachine.currentState is GatePassedState {
+//                    print("Gate: Past as good")
+//                    // Determine the player's gate scoring multiplier
+//                    let score = gateSettings.score * playerEntity.gateScoringMultiplier
+//                    // Display the score in the gate
+//                    gateEntity.gateNode.displayGateScore(score: score)
+//                    // Award player with this score
+//                    playerEntity.incrementScore(increment: score)
+//                    // Increase the scoring multiplier
+//                    if (playerEntity.gateScoringMultiplier <= gateSettings.maxScoringMultiplier) {
+//                        playerEntity.gateScoringMultiplier += 1
+//                    }
+//                } else {
+//                    print("Gate: Past as not good")
+//                    // Add penalty time to player's clock
+//                    playerEntity.elapsedTime += gateSettings.missedGateTimePenalty
+//                }
+            }
+        }
+    }
+    
+    func playerCrashed() {
+        // Make the Player slide down (wipe out) for a moment
+        playerNode.spriteNode.run(SKAction.moveTo(y: playerNode.spriteNode.position.y - playerSettings.crashSlideDistance, duration: playerSettings.crashSlideDuration))
+        
+        // Request the "crash" animation for this PlayerEntity.
+        runAnimation(node: playerNode.spriteNode, animation: playerNode.animations[.crash]!)
+        playerNode.currentAnimationState = .crash
+        
+        // Play Crash Sound
+        worldLayer.run(SKAction.playSoundFileNamed("Skiier_Crash.m4a", waitForCompletion: false))
+        
+        // Crash decomposition
+        let deadlineTime = DispatchTime.now() + .seconds(3) // TODO: Use settings interval here instead of 3
+        DispatchQueue.main.asyncAfter(deadline: deadlineTime) { [weak self] in
+            self?.playerNode.isCrashed = false
+            self?.playerNode.spriteNode.position.y += (playerSettings.crashSlideDistance)   // TODO: Remove the 24
+        }
+        
+    }
 }
+
