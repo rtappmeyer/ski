@@ -16,7 +16,7 @@ class PhysicsComponent: GKComponent {
         self.physicsBody = physicsBody
         super.init()
         
-        self.physicsBody.isDynamic = true
+//        self.physicsBody.isDynamic = true
         self.physicsBody.collisionBitMask = ColliderType.none.rawValue
 
     }

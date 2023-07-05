@@ -1,0 +1,128 @@
+G G  m      G G
+m G   I  G  G
+G    G G     G
+G          m  G
+G        G
+G
+m   q.p G   m
+
+G        G
+m G q.p
+G        m  G
+G G
+G  q.p       m
+G    G
+G
+q.p   G
+
+m m         G
+q.p m  m
+
+G      m  G
+m  q.pG  G
+G
+G
+G   q.p  G m
+G          m
+m G    G    m
+q.p
+G           G
+m     m
+G  q.p   m G
+G   G
+m
+q.p
+m
+G    G
+m   G   m q.p
+G           G
+G    G  G
+q.p
+G    m     m
+
+m    G mq.p
+G      m
+G
+G      m  q.p
+m G G
+G    m   G
+G      q.p
+G m   G
+G
+G m      q.p
+G        G
+G       G
+q.p m  m
+m    m
+G             m
+G   G   q.p m
+G   m     m
+m   m
+G   m   q.p   G
+m           G
+G
+G  mq.pm G
+m  G    G
+m
+G    q.p    G
+m  m    m
+G       m  G
+q.p   m
+G G          G
+m G m
+m  q.p  G  m
+m
+mG
+m    q.p  G
+G  G        G
+m
+G  q.p    G
+G    G G
+G    G
+q.p mG    G
+m G
+m m    m
+q.p           G
+m    G   m
+
+G q.p G  G    G
+G   m
+
+q.p
+G         G
+G G G G     m
+G q.p
+m   G
+
+m     m q.p   m
+G
+m
+G GGq.p
+G             G
+G
+G  q.pmmG G  m
+mG   G
+G             G
+G   m  q.p
+m   G  m
+G   G  m
+m    mmmq.p
+m  G
+m          G
+G   G   q.p
+G  m
+G    m  m
+q.p
+m       G
+G
+m  q.p m
+
+m   m   m
+G   q.p
+mm
+
+G             G
+
+m             m
+
+F

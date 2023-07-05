@@ -47,10 +47,10 @@ class BaseScene: SKScene {
     }
     
     func addScoreAndTimeLabels() {
-        scoreLabel = createLabel(name: "scoreLabel", text: "00", position: CGPoint(x: 480, y: 200), color: UIColor.black, alignment: .right)
+        scoreLabel = createLabel(name: "scoreLabel", text: "00", position: CGPoint(x: 480, y: 130), color: UIColor.black, alignment: .right)
         timeLabel = createLabel(name: "timeLabel", text: "00:00", position: CGPoint(x: 480, y: -60), color: UIColor.c64brownColor(), alignment: .right)
         
-        guiLayer.addChild(createLabel(name: "scoreTitleLabel", text: "Score", position: CGPoint(x: 480, y: 230), color: UIColor.black, alignment: .right))
+        guiLayer.addChild(createLabel(name: "scoreTitleLabel", text: "Score", position: CGPoint(x: 480, y: 160), color: UIColor.black, alignment: .right))
         guiLayer.addChild(scoreLabel)
         guiLayer.addChild(createLabel(name: "timeTitleLabel", text: "Time", position: CGPoint(x: 480, y: -30), color: UIColor.c64brownColor(), alignment: .right))
         guiLayer.addChild(timeLabel)

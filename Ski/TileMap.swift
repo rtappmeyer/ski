@@ -7,7 +7,6 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 protocol tileMapDelegate {
     func createNodeOf(type:tileType, location:CGPoint)

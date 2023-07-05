@@ -11,15 +11,17 @@ import SpriteKit
 
 struct levelSettings {
     static let levels: [(level: Int, timeLimit: TimeInterval)] = [
-        (level: 1, timeLimit: 70.0),
+        (level: 1, timeLimit: 100.0),
         (level: 2, timeLimit: 130.0)
     ]
 }
 
 struct playerSettings {
     static let movementSpeed: CGFloat = 60.0 // 100
-    static let downhillSpeedMin: CGFloat = 40.0
+    static let downhillSpeedMin: CGFloat = 40.0 // 40
     static let downhillSpeedMax: CGFloat = 160.0 // 160
+    static let downhillSpeedWatch: CGFloat = 100.0 // 100
+    
     
     static let downhillScore = 10
     
@@ -54,6 +56,10 @@ struct gateSettings {
     static let maxScoringMultiplier = 8
     static let score = 100
     static let missedGateTimePenalty: TimeInterval = 5.0
+}
+
+struct watchSettings {
+    static let crownRotation = 0.0025
 }
 
 enum ColliderType: UInt32 {

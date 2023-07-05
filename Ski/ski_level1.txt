@@ -1,12 +1,12 @@
 G G  m      G G
  m G   I  G  G
  G           G
-G          m  G 
-   G        G   
-G               
+G          m  G
+   G        G
+G       
   m   q.p G   m
-                
- G        G     
+       
+ G        G
  m G q.p
 G        m  G   
            G G  
@@ -97,7 +97,7 @@ G q.p G  G    G
  m     m q.p   m
      G          
              m  
-    G   q.p
+    G GGq.p
 G             G 
               G 
 G  q.pmmG G  m

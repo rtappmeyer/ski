@@ -28,7 +28,7 @@ class PostNode: SKSpriteNode {
         postPhysicsBody.categoryBitMask = ColliderType.post.rawValue
         postPhysicsBody.contactTestBitMask = ColliderType.player.rawValue
         postPhysicsBody.collisionBitMask = ColliderType.none.rawValue
-        postPhysicsBody.isDynamic = true
+//        postPhysicsBody.isDynamic = true
         
         physicsBody = postPhysicsBody
 
