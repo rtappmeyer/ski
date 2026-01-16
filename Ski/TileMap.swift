@@ -118,9 +118,11 @@ struct tileMap {
     func presentLayerViaDelegate() {
         for (indexr, row) in tileLayer.enumerated() {
             for (indexc, cvalue) in row.enumerated() {
-                if (delegate != nil) {
-                    delegate!.createNodeOf(type: tileType(rawValue: cvalue)!, location: CGPoint(x: tileSize.width * CGFloat(indexc), y: tileSize.height * CGFloat(-indexr)))
+                guard let delegate = delegate,
+                      let type = tileType(rawValue: cvalue) else {
+                    continue
                 }
+                delegate.createNodeOf(type: type, location: CGPoint(x: tileSize.width * CGFloat(indexc), y: tileSize.height * CGFloat(-indexr)))
             }
         }
     }
